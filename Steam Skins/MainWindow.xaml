@@ -1,0 +1,27 @@
+﻿<Window x:Name="Main" x:Class="MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Steam_Skins"
+        mc:Ignorable="d"
+        Title="Steam Skins" Height="350" Width="525" WindowState="Maximized">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="295"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Margin="5">
+            <TreeView x:Name="treeViewSkins" >
+                <Button x:Name="skinDefaultButton" Content="Default Skin"/>
+                <Button x:Name="skinAirButton" Content="Air for Steam"/>
+                <Button x:Name="skinMetroButton" Content="Metro for Steam"/>
+            </TreeView>
+        </Grid>
+
+        <Grid Grid.Column="1" Margin="5">
+            <Label x:Name="labelProgreso" />
+        </Grid>
+    </Grid>
+</Window>
