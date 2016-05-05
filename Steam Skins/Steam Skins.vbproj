@@ -9,13 +9,28 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Steam_Skins</RootNamespace>
     <AssemblyName>Steam Skins</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MyType>Custom</MyType>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
@@ -41,7 +56,7 @@
     <OptionExplicit>On</OptionExplicit>
   </PropertyGroup>
   <PropertyGroup>
-    <OptionCompare>Binary</OptionCompare>
+    <OptionCompare>Text</OptionCompare>
   </PropertyGroup>
   <PropertyGroup>
     <OptionStrict>Off</OptionStrict>
@@ -49,8 +64,44 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Imagenes\Icono\steam_256.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DocumentationFile>Steam Skins.xml</DocumentationFile>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DocumentationFile>Steam Skins.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elysium">
+      <HintPath>..\..\OfertasPanda2\OfertasPanda2\bin\x86\Debug\Elysium.dll</HintPath>
+    </Reference>
+    <Reference Include="Hardcodet.Wpf.TaskbarNotification">
+      <HintPath>..\..\OfertasPanda2\OfertasPanda2\bin\x86\Debug\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -70,8 +121,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Skins\Air.vb" />
-    <Compile Include="Skins\Metro.vb" />
+    <Compile Include="Herramientas\FicherosINI.vb" />
+    <Compile Include="Herramientas\Modulos.vb" />
+    <Compile Include="Herramientas\Opciones.vb" />
+    <Compile Include="Herramientas\UrlDescargas.vb" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -81,6 +134,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Herramientas\Decompiladores.vb" />
+    <Compile Include="Idiomas\Idioma.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Idioma.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Idiomas\Idioma.es-ES.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Idioma.es-ES.resx</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.vb">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -123,11 +186,22 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Idiomas\Idioma.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Idioma.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Idiomas\Idioma.es-ES.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Idioma.es-ES.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
     </EmbeddedResource>
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
@@ -137,6 +211,104 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Icono\steam-256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Icono\steam_256.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\PixelVision2\pixel1.png" />
+    <Resource Include="Imagenes\PixelVision2\pixel3.png" />
+    <Resource Include="Imagenes\PixelVision2\pixel4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Icono\paypal_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Icono\patreon_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Air Classic\airclassic1.PNG" />
+    <Resource Include="Imagenes\Air Classic\airclassic2.PNG" />
+    <Resource Include="Imagenes\Air Classic\airclassic3.PNG" />
+    <Resource Include="Imagenes\Air Classic\airclassic4.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Air\air1.PNG" />
+    <Resource Include="Imagenes\Air\air2.PNG" />
+    <Resource Include="Imagenes\Air\air3.PNG" />
+    <Resource Include="Imagenes\Air\air4.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Black Rock Shooter\blackrock1.PNG" />
+    <Resource Include="Imagenes\Black Rock Shooter\blackrock2.PNG" />
+    <Resource Include="Imagenes\Black Rock Shooter\blackrock3.PNG" />
+    <Resource Include="Imagenes\Black Rock Shooter\blackrock4.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Blue Pulse\bluepulse1.PNG" />
+    <Resource Include="Imagenes\Blue Pulse\bluepulse2.PNG" />
+    <Resource Include="Imagenes\Blue Pulse\bluepulse3.PNG" />
+    <Resource Include="Imagenes\Blue Pulse\bluepulse4.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Compact\compact1.PNG" />
+    <Resource Include="Imagenes\Compact\compact2.PNG" />
+    <Resource Include="Imagenes\Compact\compact3.PNG" />
+    <Resource Include="Imagenes\Compact\compact4.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Invert\invert1.PNG" />
+    <Resource Include="Imagenes\Invert\invert2.PNG" />
+    <Resource Include="Imagenes\Invert\invert3.PNG" />
+    <Resource Include="Imagenes\Invert\invert4.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Metro\metro1.PNG" />
+    <Resource Include="Imagenes\Metro\metro2.PNG" />
+    <Resource Include="Imagenes\Metro\metro3.PNG" />
+    <Resource Include="Imagenes\Metro\metro4.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Minimal\mini1.PNG" />
+    <Resource Include="Imagenes\Minimal\mini2.PNG" />
+    <Resource Include="Imagenes\Minimal\mini3.PNG" />
+    <Resource Include="Imagenes\Minimal\mini4.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\PixelVision2\pixel2.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Plexed\plexed1.PNG" />
+    <Resource Include="Imagenes\Plexed\plexed2.PNG" />
+    <Resource Include="Imagenes\Plexed\plexed3.PNG" />
+    <Resource Include="Imagenes\Plexed\plexed4.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Pressure2\pre1.PNG" />
+    <Resource Include="Imagenes\Pressure2\pre2.PNG" />
+    <Resource Include="Imagenes\Pressure2\pre3.PNG" />
+    <Resource Include="Imagenes\Pressure2\pre4.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Threshold\thr1.PNG" />
+    <Resource Include="Imagenes\Threshold\thr2.PNG" />
+    <Resource Include="Imagenes\Threshold\thr3.PNG" />
+    <Resource Include="Imagenes\Threshold\thr4.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Default\default1.PNG" />
+    <Resource Include="Imagenes\Default\default2.PNG" />
+    <Resource Include="Imagenes\Default\default3.PNG" />
+    <Resource Include="Imagenes\Default\default4.PNG" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

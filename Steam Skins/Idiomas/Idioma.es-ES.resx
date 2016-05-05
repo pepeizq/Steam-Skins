@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="backgroundDots" xml:space="preserve">
+    <value>Puntos</value>
+  </data>
+  <data name="backgroundNoise" xml:space="preserve">
+    <value>Ruido</value>
+  </data>
+  <data name="backgroundNone" xml:space="preserve">
+    <value>Ninguno</value>
+  </data>
+  <data name="backgroundRibbon" xml:space="preserve">
+    <value>Cinta</value>
+  </data>
+  <data name="buttonBarraSuperiorVolver" xml:space="preserve">
+    <value>Volver</value>
+  </data>
+  <data name="buttonCleanAllSkins" xml:space="preserve">
+    <value>Borrar todas las apariencias instaladas</value>
+  </data>
+  <data name="colorBlack" xml:space="preserve">
+    <value>Negro</value>
+  </data>
+  <data name="colorBlue" xml:space="preserve">
+    <value>Azul</value>
+  </data>
+  <data name="colorBreeze" xml:space="preserve">
+    <value>Brisa</value>
+  </data>
+  <data name="colorBubblegum" xml:space="preserve">
+    <value>Rosa Chicle</value>
+  </data>
+  <data name="colorCinnabar" xml:space="preserve">
+    <value>Bermellón</value>
+  </data>
+  <data name="colorCinnamon" xml:space="preserve">
+    <value>Canela</value>
+  </data>
+  <data name="colorCobalt" xml:space="preserve">
+    <value>Cobalto</value>
+  </data>
+  <data name="colorCyan" xml:space="preserve">
+    <value>Cian</value>
+  </data>
+  <data name="colorDarkBlue" xml:space="preserve">
+    <value>Azul Oscuro</value>
+  </data>
+  <data name="colorDarkGreen" xml:space="preserve">
+    <value>Verde Oscuro</value>
+  </data>
+  <data name="colorDeeppurple" xml:space="preserve">
+    <value>Morado Profundo</value>
+  </data>
+  <data name="colorGrass" xml:space="preserve">
+    <value>Hierba</value>
+  </data>
+  <data name="colorGreen" xml:space="preserve">
+    <value>Verde</value>
+  </data>
+  <data name="colorGrey" xml:space="preserve">
+    <value>Gris</value>
+  </data>
+  <data name="colorGunmetal" xml:space="preserve">
+    <value>Metal</value>
+  </data>
+  <data name="colorHappyOrange" xml:space="preserve">
+    <value>Naranja Feliz</value>
+  </data>
+  <data name="colorLavender" xml:space="preserve">
+    <value>Lavanda</value>
+  </data>
+  <data name="colorLightBlue" xml:space="preserve">
+    <value>Azul Claro</value>
+  </data>
+  <data name="colorLilac" xml:space="preserve">
+    <value>Lila</value>
+  </data>
+  <data name="colorNavy" xml:space="preserve">
+    <value>Azul Marino</value>
+  </data>
+  <data name="colorNight" xml:space="preserve">
+    <value>Noche</value>
+  </data>
+  <data name="colorOrange" xml:space="preserve">
+    <value>Naranja</value>
+  </data>
+  <data name="colorPadawan" xml:space="preserve">
+    <value>Padawan</value>
+  </data>
+  <data name="colorPurple" xml:space="preserve">
+    <value>Morado</value>
+  </data>
+  <data name="colorRed" xml:space="preserve">
+    <value>Rojo</value>
+  </data>
+  <data name="colorRose" xml:space="preserve">
+    <value>Rosa</value>
+  </data>
+  <data name="colorRoyal" xml:space="preserve">
+    <value>Real</value>
+  </data>
+  <data name="colorRoyalBlue" xml:space="preserve">
+    <value>Azul Real</value>
+  </data>
+  <data name="colorSea" xml:space="preserve">
+    <value>Mar</value>
+  </data>
+  <data name="colorSilver" xml:space="preserve">
+    <value>Plata</value>
+  </data>
+  <data name="colorSky" xml:space="preserve">
+    <value>Cielo</value>
+  </data>
+  <data name="colorSlate" xml:space="preserve">
+    <value>Pizarra</value>
+  </data>
+  <data name="colorSteamblue" xml:space="preserve">
+    <value>Azul Steam</value>
+  </data>
+  <data name="colorTeal" xml:space="preserve">
+    <value>Verde Azulado</value>
+  </data>
+  <data name="colorTruffle" xml:space="preserve">
+    <value>Trufa</value>
+  </data>
+  <data name="colorViolet" xml:space="preserve">
+    <value>Violeta</value>
+  </data>
+  <data name="colorViridian" xml:space="preserve">
+    <value>Verde Esmeralda</value>
+  </data>
+  <data name="colorWatermelon" xml:space="preserve">
+    <value>Sandía</value>
+  </data>
+  <data name="colorYoutubered" xml:space="preserve">
+    <value>Rojo Youtube</value>
+  </data>
+  <data name="customBackground" xml:space="preserve">
+    <value>Fondos:</value>
+  </data>
+  <data name="customColor" xml:space="preserve">
+    <value>Colores:</value>
+  </data>
+  <data name="customTheme" xml:space="preserve">
+    <value>Temas:</value>
+  </data>
+  <data name="customTitleBar" xml:space="preserve">
+    <value>Barra de titulo negra:</value>
+  </data>
+  <data name="errorConnecting" xml:space="preserve">
+    <value>Error conectando</value>
+  </data>
+  <data name="errorDownloadingFile" xml:space="preserve">
+    <value>Error al descargar el fichero de la apariencia</value>
+  </data>
+  <data name="errorExtractingFiles" xml:space="preserve">
+    <value>Error extrayendo ficheros</value>
+  </data>
+  <data name="errorMovingFiles" xml:space="preserve">
+    <value>Error moviendo ficheros</value>
+  </data>
+  <data name="errorRegistryWindows" xml:space="preserve">
+    <value>Error al registrar la apariencia en Windows</value>
+  </data>
+  <data name="errorStartingDownload" xml:space="preserve">
+    <value>Error al empezar la descarga, intenta de nuevo</value>
+  </data>
+  <data name="extractingFiles" xml:space="preserve">
+    <value>Extrayendo ficheros</value>
+  </data>
+  <data name="fontsFile" xml:space="preserve">
+    <value>Instrucciones para instalar fuentes.txt</value>
+  </data>
+  <data name="fontsFolder" xml:space="preserve">
+    <value>INSTALA ESTAS FUENTES</value>
+  </data>
+  <data name="fontsInstructions1" xml:space="preserve">
+    <value>Selecciona el fichero con extensión .ttf</value>
+  </data>
+  <data name="fontsInstructions2" xml:space="preserve">
+    <value>Haz click derecho sobre la fuente y selecciona instalar</value>
+  </data>
+  <data name="gridOptionsLanguageLabel" xml:space="preserve">
+    <value>Cambiar de idioma:</value>
+  </data>
+  <data name="labelTopBarComboBox" xml:space="preserve">
+    <value>Selecciona apariencia:</value>
+  </data>
+  <data name="labelTopBarSkinUse" xml:space="preserve">
+    <value>Apariencia en uso:</value>
+  </data>
+  <data name="labelTopBarSteamFolder" xml:space="preserve">
+    <value>Carpeta de Steam:</value>
+  </data>
+  <data name="menuContact" xml:space="preserve">
+    <value>Contacta</value>
+  </data>
+  <data name="menuOptions" xml:space="preserve">
+    <value>Opciones</value>
+  </data>
+  <data name="movingFiles" xml:space="preserve">
+    <value>Moviendo ficheros</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="progressDownload" xml:space="preserve">
+    <value>Progreso de descarga:</value>
+  </data>
+  <data name="searchingDownload" xml:space="preserve">
+    <value>Buscando descarga</value>
+  </data>
+  <data name="skinInstallButton" xml:space="preserve">
+    <value>Instalar</value>
+  </data>
+  <data name="skinInstallButtonAgain" xml:space="preserve">
+    <value>Instalar de Nuevo</value>
+  </data>
+  <data name="skinInstalled" xml:space="preserve">
+    <value>Apariencia instalada</value>
+  </data>
+  <data name="startingSteam" xml:space="preserve">
+    <value>Arrancando Steam</value>
+  </data>
+  <data name="tabControlAutorCreado" xml:space="preserve">
+    <value>Creada por:</value>
+  </data>
+  <data name="tabControlAutorDonar" xml:space="preserve">
+    <value>Donar:</value>
+  </data>
+  <data name="tabControlAutorLabel" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="tabControlCustomizationLabel" xml:space="preserve">
+    <value>Personalización</value>
+  </data>
+  <data name="tabControlScreenshotsLabel" xml:space="preserve">
+    <value>Capturas de Pantalla</value>
+  </data>
+  <data name="tabControlScreenshotsTooltip" xml:space="preserve">
+    <value>Si haces doble click sobre la captura, esta se expandirá</value>
+  </data>
+  <data name="themeDark" xml:space="preserve">
+    <value>Oscuro</value>
+  </data>
+  <data name="themeLight" xml:space="preserve">
+    <value>Claro</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Si</value>
+  </data>
+</root>

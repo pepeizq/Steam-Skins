@@ -62,7 +62,7 @@ Public Module Decompiladores
     Public Function Decompression(url As String) As String
 
         Try
-            Dim request As HttpWebRequest = CType(Net.WebRequest.Create(url), HttpWebRequest)
+            Dim request As HttpWebRequest = CType(WebRequest.Create(url), HttpWebRequest)
 
             request.UserAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.0.3705;)"
             request.Headers.Add(HttpRequestHeader.AcceptEncoding, "gzip,deflate")
@@ -79,19 +79,6 @@ Public Module Decompiladores
             Return Nothing
         End Try
     End Function
-
-    Public Function Download(url As String) As String
-
-        Try
-            Dim sourceString As String = New WebClient().DownloadString(url)
-
-            Return sourceString
-        Catch ex As Exception
-            Return Nothing
-        End Try
-    End Function
-
-
 
 End Module
 
