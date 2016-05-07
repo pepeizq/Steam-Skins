@@ -119,6 +119,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Checking the last version.
+        '''</summary>
+        Friend Shared ReadOnly Property checkingLastVersion() As String
+            Get
+                Return ResourceManager.GetString("checkingLastVersion", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Black.
         '''</summary>
         Friend Shared ReadOnly Property colorBlack() As String
@@ -614,6 +623,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Warning: If you change the language all the installed skins will be delete.
+        '''</summary>
+        Friend Shared ReadOnly Property gridOptionsLanguageLabelWarning() As String
+            Get
+                Return ResourceManager.GetString("gridOptionsLanguageLabelWarning", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Select Skin:.
         '''</summary>
         Friend Shared ReadOnly Property labelTopBarComboBox() As String
@@ -731,6 +749,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to You have installed the last version.
+        '''</summary>
+        Friend Shared ReadOnly Property succesfulLastVersion() As String
+            Get
+                Return ResourceManager.GetString("succesfulLastVersion", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Created by:.
         '''</summary>
         Friend Shared ReadOnly Property tabControlAutorCreado() As String
@@ -799,6 +826,15 @@ Namespace My.Resources
         Friend Shared ReadOnly Property themeLight() As String
             Get
                 Return ResourceManager.GetString("themeLight", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Updating new version of.
+        '''</summary>
+        Friend Shared ReadOnly Property updatingNewVersion() As String
+            Get
+                Return ResourceManager.GetString("updatingNewVersion", resourceCulture)
             End Get
         End Property
         

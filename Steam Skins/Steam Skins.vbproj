@@ -68,7 +68,7 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Imagenes\Icono\steam_256.ico</ApplicationIcon>
+    <ApplicationIcon>Imagenes\Icono\steam-256.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -134,6 +134,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Herramientas\Decompiladores.vb" />
+    <Compile Include="Herramientas\Versiones.vb" />
     <Compile Include="Idiomas\Idioma.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -197,7 +198,7 @@
       <LastGenOutput>Idioma.es-ES.Designer.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
-      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <Generator>PublicVbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
     </EmbeddedResource>
@@ -222,7 +223,7 @@
     <Resource Include="Imagenes\Icono\steam-256.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\Icono\steam_256.ico" />
+    <Resource Include="Imagenes\Icono\steam-256.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Imagenes\PixelVision2\pixel1.png" />

@@ -135,6 +135,9 @@
   <data name="buttonCleanAllSkins" xml:space="preserve">
     <value>Delete all installed skins</value>
   </data>
+  <data name="checkingLastVersion" xml:space="preserve">
+    <value>Checking the last version</value>
+  </data>
   <data name="colorBlack" xml:space="preserve">
     <value>Black</value>
   </data>
@@ -300,6 +303,9 @@
   <data name="gridOptionsLanguageLabel" xml:space="preserve">
     <value>Change language:</value>
   </data>
+  <data name="gridOptionsLanguageLabelWarning" xml:space="preserve">
+    <value>Warning: If you change the language all the installed skins will be delete</value>
+  </data>
   <data name="labelTopBarComboBox" xml:space="preserve">
     <value>Select Skin:</value>
   </data>
@@ -339,6 +345,9 @@
   <data name="startingSteam" xml:space="preserve">
     <value>Starting Steam</value>
   </data>
+  <data name="succesfulLastVersion" xml:space="preserve">
+    <value>You have installed the last version</value>
+  </data>
   <data name="tabControlAutorCreado" xml:space="preserve">
     <value>Created by:</value>
   </data>
@@ -362,6 +371,9 @@
   </data>
   <data name="themeLight" xml:space="preserve">
     <value>Light</value>
+  </data>
+  <data name="updatingNewVersion" xml:space="preserve">
+    <value>Updating new version of</value>
   </data>
   <data name="yes" xml:space="preserve">
     <value>Yes</value>

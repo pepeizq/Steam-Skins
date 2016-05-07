@@ -1,5 +1,4 @@
-﻿Imports System.Environment
-Imports System.Globalization
+﻿Imports System.Globalization
 Imports System.IO
 Imports System.Resources
 Imports System.Text
@@ -67,6 +66,19 @@ Module Modulos
         End Using
 
         File.AppendAllLines(My.Application.Info.DirectoryPath + "\Temp\" + recursos.GetString("fontsFolder", New CultureInfo(opcionIdioma)) + "\" + recursos.GetString("fontsFile", New CultureInfo(opcionIdioma)), lineas)
+
+    End Sub
+
+    Public Sub CrearFicheroSkin(path As String)
+
+        Using fs As FileStream = File.Create(path + "\SteamSkins.ini")
+            Dim info As Byte() = New UTF8Encoding(True).GetBytes("[")
+            fs.Write(info, 0, info.Length)
+        End Using
+
+        Dim lineas() As String = {"Data]", "Version=", "Zip=", "Folder=", "Title=", "Code=", " ", "[Options]"}
+
+        File.AppendAllLines(path + "\SteamSkins.ini", lineas)
 
     End Sub
 

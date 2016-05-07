@@ -25,7 +25,7 @@
     <metro:Window.Icon>
         <DrawingImage>
             <DrawingImage.Drawing>
-                <ImageDrawing ImageSource="Imagenes/Icono/steam_256.ico" Rect="0,0,24,24" />
+                <ImageDrawing ImageSource="Imagenes/Icono/steam-256.ico" Rect="0,0,24,24" />
             </DrawingImage.Drawing>
         </DrawingImage>
     </metro:Window.Icon>
@@ -133,12 +133,11 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <Button x:Name="skinInstallButton" Grid.Column="0" Margin="5" FontSize="14" />
-              
-                <Grid x:Name="gridProgreso" Grid.Column="1" Margin="5,0,0,0">
+
+                <Grid x:Name="gridProgreso" Grid.Column="1" Margin="10,0,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
@@ -147,8 +146,6 @@
                     <ProgressBar x:Name="progressBarProgreso" Grid.Column="0" Width="200" Visibility="Collapsed" Height="34" Margin="0,0,10,0"/>
                     <Label x:Name="labelProgreso" FontSize="14" Grid.Column="1" VerticalContentAlignment="Center"/>
                 </Grid>
-
-                
             </Grid>
 
             <Grid Grid.Row="2" Margin="5,15">
@@ -198,6 +195,66 @@
 
                                 <Label x:Name="labelSkinOpcion3" Grid.Column="0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
                                 <ComboBox x:Name="comboBoxSkinOpcion3" Grid.Column="1" Height="34"/>
+                            </Grid>
+
+                            <Grid x:Name="gridSkinOpcion4" Grid.Column="2" Margin="10" Visibility="Collapsed">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label x:Name="labelSkinOpcion4" Grid.Column="0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
+                                <ComboBox x:Name="comboBoxSkinOpcion4" Grid.Column="1" Height="34"/>
+                            </Grid>
+
+                            <Grid x:Name="gridSkinOpcion5" Grid.Column="2" Margin="10" Visibility="Collapsed">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label x:Name="labelSkinOpcion5" Grid.Column="0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
+                                <ComboBox x:Name="comboBoxSkinOpcion5" Grid.Column="1" Height="34"/>
+                            </Grid>
+
+                            <Grid x:Name="gridSkinOpcion6" Grid.Column="2" Margin="10" Visibility="Collapsed">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label x:Name="labelSkinOpcion6" Grid.Column="0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
+                                <ComboBox x:Name="comboBoxSkinOpcion6" Grid.Column="1" Height="34"/>
+                            </Grid>
+
+                            <Grid x:Name="gridSkinOpcion7" Grid.Column="2" Margin="10" Visibility="Collapsed">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label x:Name="labelSkinOpcion7" Grid.Column="0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
+                                <ComboBox x:Name="comboBoxSkinOpcion7" Grid.Column="1" Height="34"/>
+                            </Grid>
+
+                            <Grid x:Name="gridSkinOpcion8" Grid.Column="2" Margin="10" Visibility="Collapsed">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label x:Name="labelSkinOpcion8" Grid.Column="0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
+                                <ComboBox x:Name="comboBoxSkinOpcion8" Grid.Column="1" Height="34"/>
+                            </Grid>
+
+                            <Grid x:Name="gridSkinOpcion9" Grid.Column="2" Margin="10" Visibility="Collapsed">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label x:Name="labelSkinOpcion9" Grid.Column="0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
+                                <ComboBox x:Name="comboBoxSkinOpcion9" Grid.Column="1" Height="34"/>
                             </Grid>
                         </Grid>
                     </TabItem>
@@ -337,13 +394,15 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <Label x:Name="gridOptionsLanguageLabel" Grid.Column="0" Margin="0,0,10,0" FontSize="14"/>
                 <ComboBox x:Name="comboBoxOpcionesIdioma" Grid.Column="1">
                     <ComboBoxItem Content="English" FontSize="14" Margin="5,0" />
                     <ComboBoxItem Content="Español" FontSize="14" Margin="5,0" />
-                </ComboBox> 
+                </ComboBox>
+                <Label x:Name="gridOptionsLanguageLabelAviso" Grid.Column="2" Margin="10,0,0,0" FontSize="14"/>
             </Grid>
 
             <Grid Grid.Row="2" Margin="0,30,0,0">
@@ -354,7 +413,7 @@
         <tb:TaskbarIcon x:Name="NotifyIcon"
 			Visibility="Visible"
 			ToolTipText="Steam Skins"
-			IconSource="/Imagenes/Icono/steam_256.ico"
+			IconSource="/Imagenes/Icono/steam-256.ico"
 			MenuActivation="RightClick"
 			IsHitTestVisible="False">
         </tb:TaskbarIcon>

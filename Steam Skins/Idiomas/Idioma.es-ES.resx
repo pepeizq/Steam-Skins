@@ -135,6 +135,9 @@
   <data name="buttonCleanAllSkins" xml:space="preserve">
     <value>Borrar todas las apariencias instaladas</value>
   </data>
+  <data name="checkingLastVersion" xml:space="preserve">
+    <value>Comprobando si hay nueva versión</value>
+  </data>
   <data name="colorBlack" xml:space="preserve">
     <value>Negro</value>
   </data>
@@ -300,6 +303,9 @@
   <data name="gridOptionsLanguageLabel" xml:space="preserve">
     <value>Cambiar de idioma:</value>
   </data>
+  <data name="gridOptionsLanguageLabelWarning" xml:space="preserve">
+    <value>Aviso: Si cambias de idiomas todas las apariencias instaladas serán borradas</value>
+  </data>
   <data name="labelTopBarComboBox" xml:space="preserve">
     <value>Selecciona apariencia:</value>
   </data>
@@ -339,6 +345,9 @@
   <data name="startingSteam" xml:space="preserve">
     <value>Arrancando Steam</value>
   </data>
+  <data name="succesfulLastVersion" xml:space="preserve">
+    <value>Tienes la ultima versión instalada</value>
+  </data>
   <data name="tabControlAutorCreado" xml:space="preserve">
     <value>Creada por:</value>
   </data>
@@ -362,6 +371,9 @@
   </data>
   <data name="themeLight" xml:space="preserve">
     <value>Claro</value>
+  </data>
+  <data name="updatingNewVersion" xml:space="preserve">
+    <value>Actualizando nueva versión de</value>
   </data>
   <data name="yes" xml:space="preserve">
     <value>Si</value>

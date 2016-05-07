@@ -6,19 +6,21 @@ Imports System.Environment
 Imports System.Globalization
 Imports System.Resources
 Imports System.Reflection
+Imports Hardcodet.Wpf.TaskbarNotification
 
 Class MainWindow
 
     Dim rutaSteam As String
-    Dim skinInstalada As String
+    Dim skinInstalada, versionSkinInstalada, versionSkinActualizada As String
 
     Dim skinTitulo As String
     Dim skinCarpeta As String
     Dim skinZip As String
     Dim skinUrlDescarga As String
+    Dim skinSeleccionPosicion As String
 
-    Dim skinOpcion1, skinOpcion2, skinOpcion3 As String
-    Dim skinOpcionSeleccion1, skinOpcionSeleccion2, skinOpcionSeleccion3 As String
+    Dim skinOpcion1, skinOpcion2, skinOpcion3, skinOpcion4, skinOpcion5, skinOpcion6, skinOpcion7, skinOpcion8, skinOpcion9 As String
+    Dim skinOpcionSeleccion1, skinOpcionSeleccion2, skinOpcionSeleccion3, skinOpcionSeleccion4, skinOpcionSeleccion5, skinOpcionSeleccion6, skinOpcionSeleccion7, skinOpcionSeleccion8, skinOpcionSeleccion9 As String
 
     Dim opcionIdioma As String
     Dim assem As Assembly = Assembly.Load("Steam Skins")
@@ -30,13 +32,30 @@ Class MainWindow
 
         Main.Title = "Steam Skins (" + version + ")"
 
+        Dim intFramework As Integer = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full", "Release", Nothing)
+
+        If intFramework < 378759 Then
+            MsgBox("You need to have installed at least .NET Framework 4.5.2 before starting the application")
+            Me.Close()
+        End If
+
         If Not File.Exists(My.Application.Info.DirectoryPath + "\Config.ini") Then
             Modulos.CrearFicheroConfig()
         End If
 
-        If FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Config.ini", "Options", "Language") = Nothing Then
-            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Config.ini", "Options", "Language", CultureInfo.CurrentCulture.Name)
-        End If
+        Try
+            If FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Config.ini", "Options", "Language") = Nothing Then
+                Dim tempIdioma As String = CultureInfo.CurrentCulture.Name
+
+                If Not tempIdioma = "es-ES" Then
+                    tempIdioma = "en-US"
+                End If
+
+                FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Config.ini", "Options", "Language", tempIdioma)
+            End If
+        Catch ex As Exception
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Config.ini", "Options", "Language", "en-US")
+        End Try
 
         CargarIdioma()
 
@@ -55,6 +74,14 @@ Class MainWindow
         End If
 
         Modulos.ImagenExpandir(columnImage1, imagePreview1)
+
+        If Not skinInstalada = "Default" Then
+            If Directory.Exists(rutaSteam + "\skins\" + skinInstalada) Then
+                If File.Exists(rutaSteam + "\skins\" + skinInstalada + "\SteamSkins.ini") Then
+                    comboBoxSkins.SelectedIndex = FicherosINI.Leer(rutaSteam + "\skins\" + skinInstalada + "\SteamSkins.ini", "Data", "Code")
+                End If
+            End If
+        End If
 
     End Sub
 
@@ -84,6 +111,7 @@ Class MainWindow
         buttonBarraSuperiorVolverOpciones.Content = recursos.GetString("buttonBarraSuperiorVolver", New CultureInfo(opcionIdioma))
 
         gridOptionsLanguageLabel.Content = recursos.GetString("gridOptionsLanguageLabel", New CultureInfo(opcionIdioma))
+        gridOptionsLanguageLabelAviso.Content = recursos.GetString("gridOptionsLanguageLabelWarning", New CultureInfo(opcionIdioma))
         buttonCleanAllSkins.Content = recursos.GetString("buttonCleanAllSkins", New CultureInfo(opcionIdioma))
 
     End Sub
@@ -100,6 +128,9 @@ Class MainWindow
         gridSkinOpcion2.IsEnabled = estado
         gridSkinOpcion3.IsEnabled = estado
 
+        buttonBarraSuperiorVolverOpciones.IsEnabled = estado
+        comboBoxOpcionesIdioma.IsEnabled = estado
+
     End Sub
 
     Private Sub ControlesEstadoSkins()
@@ -109,6 +140,7 @@ Class MainWindow
         If Not skinInstalada = Nothing Then
             skinInstalada = skinInstalada.Replace("/", "\")
             skinInstalada = skinInstalada.Trim
+            labelSkinInstalada.Content = skinInstalada
         End If
 
         If skinInstalada = Nothing Then
@@ -127,22 +159,47 @@ Class MainWindow
         skinCarpeta = Nothing
         skinZip = Nothing
         skinUrlDescarga = Nothing
+        skinSeleccionPosicion = Nothing
 
         skinOpcion1 = Nothing
         skinOpcion2 = Nothing
         skinOpcion3 = Nothing
+        skinOpcion4 = Nothing
+        skinOpcion5 = Nothing
+        skinOpcion6 = Nothing
+        skinOpcion7 = Nothing
+        skinOpcion8 = Nothing
+        skinOpcion9 = Nothing
 
         skinOpcionSeleccion1 = Nothing
         skinOpcionSeleccion2 = Nothing
         skinOpcionSeleccion3 = Nothing
+        skinOpcionSeleccion4 = Nothing
+        skinOpcionSeleccion5 = Nothing
+        skinOpcionSeleccion6 = Nothing
+        skinOpcionSeleccion7 = Nothing
+        skinOpcionSeleccion8 = Nothing
+        skinOpcionSeleccion9 = Nothing
 
         labelSkinOpcion1.Content = Nothing
         labelSkinOpcion2.Content = Nothing
         labelSkinOpcion3.Content = Nothing
+        labelSkinOpcion4.Content = Nothing
+        labelSkinOpcion5.Content = Nothing
+        labelSkinOpcion6.Content = Nothing
+        labelSkinOpcion7.Content = Nothing
+        labelSkinOpcion8.Content = Nothing
+        labelSkinOpcion9.Content = Nothing
 
         gridSkinOpcion1.Visibility = Visibility.Collapsed
         gridSkinOpcion2.Visibility = Visibility.Collapsed
         gridSkinOpcion3.Visibility = Visibility.Collapsed
+        gridSkinOpcion4.Visibility = Visibility.Collapsed
+        gridSkinOpcion5.Visibility = Visibility.Collapsed
+        gridSkinOpcion6.Visibility = Visibility.Collapsed
+        gridSkinOpcion7.Visibility = Visibility.Collapsed
+        gridSkinOpcion8.Visibility = Visibility.Collapsed
+        gridSkinOpcion9.Visibility = Visibility.Collapsed
 
         Modulos.ImagenExpandir(columnImage1, imagePreview1)
         Modulos.ImagenReducir(columnImage2, imagePreview2)
@@ -468,6 +525,7 @@ Class MainWindow
         skinCarpeta = carpeta
         skinZip = zip
         skinTitulo = titulo
+        skinSeleccionPosicion = comboBoxSkins.SelectedIndex.ToString
 
         textBoxSkinSeleccionada.Text = skinTitulo
         labelProgreso.Content = Nothing
@@ -535,6 +593,29 @@ Class MainWindow
             skinInstallButton.Content = recursos.GetString("skinInstallButton", New CultureInfo(opcionIdioma))
         End If
 
+        If Not skinTitulo = "Default" Then
+            If Directory.Exists(rutaSteam + "\skins\" + skinTitulo) Then
+                If File.Exists(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini") Then
+                    versionSkinInstalada = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Data", "Version")
+
+                    comboBoxSkinOpcion1.SelectedItem = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option1_Selection")
+                    comboBoxSkinOpcion2.SelectedItem = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option2_Selection")
+                    comboBoxSkinOpcion3.SelectedItem = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option3_Selection")
+                    comboBoxSkinOpcion4.SelectedItem = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option4_Selection")
+                    comboBoxSkinOpcion5.SelectedItem = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option5_Selection")
+                    comboBoxSkinOpcion6.SelectedItem = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option6_Selection")
+                    comboBoxSkinOpcion7.SelectedItem = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option7_Selection")
+                    comboBoxSkinOpcion8.SelectedItem = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option8_Selection")
+                    comboBoxSkinOpcion9.SelectedItem = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option9_Selection")
+
+                    labelProgreso.Content = recursos.GetString("checkingLastVersion", New CultureInfo(opcionIdioma))
+                    ControlesEstado(False)
+
+                    workerVersiones.RunWorkerAsync()
+                End If
+            End If
+        End If
+
     End Sub
 
     Private Sub skinInstallButton_Click(sender As Object, e As RoutedEventArgs) Handles skinInstallButton.Click
@@ -542,10 +623,22 @@ Class MainWindow
         skinOpcion1 = labelSkinOpcion1.Content
         skinOpcion2 = labelSkinOpcion2.Content
         skinOpcion3 = labelSkinOpcion3.Content
+        skinOpcion4 = labelSkinOpcion4.Content
+        skinOpcion5 = labelSkinOpcion5.Content
+        skinOpcion6 = labelSkinOpcion6.Content
+        skinOpcion7 = labelSkinOpcion7.Content
+        skinOpcion8 = labelSkinOpcion8.Content
+        skinOpcion9 = labelSkinOpcion9.Content
 
         skinOpcionSeleccion1 = Modulos.CogerSeleccion(gridSkinOpcion1, comboBoxSkinOpcion1)
         skinOpcionSeleccion2 = Modulos.CogerSeleccion(gridSkinOpcion2, comboBoxSkinOpcion2)
         skinOpcionSeleccion3 = Modulos.CogerSeleccion(gridSkinOpcion3, comboBoxSkinOpcion3)
+        skinOpcionSeleccion4 = Modulos.CogerSeleccion(gridSkinOpcion4, comboBoxSkinOpcion4)
+        skinOpcionSeleccion5 = Modulos.CogerSeleccion(gridSkinOpcion5, comboBoxSkinOpcion5)
+        skinOpcionSeleccion6 = Modulos.CogerSeleccion(gridSkinOpcion6, comboBoxSkinOpcion6)
+        skinOpcionSeleccion7 = Modulos.CogerSeleccion(gridSkinOpcion7, comboBoxSkinOpcion7)
+        skinOpcionSeleccion8 = Modulos.CogerSeleccion(gridSkinOpcion8, comboBoxSkinOpcion8)
+        skinOpcionSeleccion9 = Modulos.CogerSeleccion(gridSkinOpcion9, comboBoxSkinOpcion9)
 
         ControlesEstado(False)
 
@@ -587,21 +680,25 @@ Class MainWindow
         Dim theRequest As HttpWebRequest = Nothing
         Dim length As Long = -1
 
-        If Not skinUrlDescarga = Nothing Then
-            Dim i As Integer = 0
-            While i < 10
-                theRequest = WebRequest.Create(skinUrlDescarga)
-                theResponse = theRequest.GetResponse
-                length = theResponse.ContentLength
+        Try
+            If Not skinUrlDescarga = Nothing Then
+                Dim i As Integer = 0
+                While i < 10
+                    theRequest = WebRequest.Create(skinUrlDescarga)
+                    theResponse = theRequest.GetResponse
+                    length = theResponse.ContentLength
 
-                If Not length = -1 Then
-                    i = 10
-                End If
-                i += 1
-            End While
-        Else
+                    If Not length = -1 Then
+                        i = 10
+                    End If
+                    i += 1
+                End While
+            Else
+                workerDescarga.ReportProgress(0, recursos.GetString("errorConnecting", New CultureInfo(opcionIdioma)))
+            End If
+        Catch ex As Exception
             workerDescarga.ReportProgress(0, recursos.GetString("errorConnecting", New CultureInfo(opcionIdioma)))
-        End If
+        End Try
 
         If Not length = -1 Then
             Dim writeStream As New FileStream(My.Application.Info.DirectoryPath + "\Temp\" + skinZip + ".zip", FileMode.Create)
@@ -706,16 +803,71 @@ Class MainWindow
 
                 My.Computer.FileSystem.MoveDirectory(My.Application.Info.DirectoryPath + "\Temp\" + skinZip + "\" + skinCarpeta, rutaSteam + "\skins\" + skinTitulo)
 
+                Modulos.CrearFicheroSkin(rutaSteam + "\skins\" + skinTitulo)
+
+                Dim version As String = Versiones.Generar(skinTitulo)
+
+                If Not version = Nothing Then
+                    FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Data", "Version", version)
+                End If
+
+                FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Data", "Zip", skinZip)
+                FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Data", "Folder", skinCarpeta)
+                FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Data", "Title", skinTitulo)
+                FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Data", "Code", skinSeleccionPosicion)
+
                 If Not skinOpcionSeleccion1 = Nothing Then
-                    Opciones.FiltrarOpcion(skinOpcion1, rutaSteam, skinZip, skinTitulo, skinOpcionSeleccion1, opcionIdioma, recursos)
+                    Opciones.Filtrar(skinOpcion1, rutaSteam, skinZip, skinTitulo, skinOpcionSeleccion1, opcionIdioma, recursos)
+                    FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option1_Label", skinOpcion1)
+                    FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option1_Selection", skinOpcionSeleccion1)
                 End If
 
                 If Not skinOpcionSeleccion2 = Nothing Then
-                    Opciones.FiltrarOpcion(skinOpcion2, rutaSteam, skinZip, skinTitulo, skinOpcionSeleccion2, opcionIdioma, recursos)
+                    Opciones.Filtrar(skinOpcion2, rutaSteam, skinZip, skinTitulo, skinOpcionSeleccion2, opcionIdioma, recursos)
+                    FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option2_Label", skinOpcion2)
+                    FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option2_Selection", skinOpcionSeleccion2)
                 End If
 
                 If Not skinOpcionSeleccion3 = Nothing Then
-                    Opciones.FiltrarOpcion(skinOpcion3, rutaSteam, skinZip, skinTitulo, skinOpcionSeleccion3, opcionIdioma, recursos)
+                    Opciones.Filtrar(skinOpcion3, rutaSteam, skinZip, skinTitulo, skinOpcionSeleccion3, opcionIdioma, recursos)
+                    FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option3_Label", skinOpcion3)
+                    FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option3_Selection", skinOpcionSeleccion3)
+                End If
+
+                If Not skinOpcionSeleccion4 = Nothing Then
+                    Opciones.Filtrar(skinOpcion4, rutaSteam, skinZip, skinTitulo, skinOpcionSeleccion4, opcionIdioma, recursos)
+                    FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option4_Label", skinOpcion4)
+                    FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option4_Selection", skinOpcionSeleccion4)
+                End If
+
+                If Not skinOpcionSeleccion5 = Nothing Then
+                    Opciones.Filtrar(skinOpcion5, rutaSteam, skinZip, skinTitulo, skinOpcionSeleccion5, opcionIdioma, recursos)
+                    FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option5_Label", skinOpcion5)
+                    FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option5_Selection", skinOpcionSeleccion5)
+                End If
+
+                If Not skinOpcionSeleccion6 = Nothing Then
+                    Opciones.Filtrar(skinOpcion6, rutaSteam, skinZip, skinTitulo, skinOpcionSeleccion6, opcionIdioma, recursos)
+                    FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option6_Label", skinOpcion6)
+                    FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option6_Selection", skinOpcionSeleccion6)
+                End If
+
+                If Not skinOpcionSeleccion7 = Nothing Then
+                    Opciones.Filtrar(skinOpcion7, rutaSteam, skinZip, skinTitulo, skinOpcionSeleccion7, opcionIdioma, recursos)
+                    FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option7_Label", skinOpcion7)
+                    FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option7_Selection", skinOpcionSeleccion7)
+                End If
+
+                If Not skinOpcionSeleccion8 = Nothing Then
+                    Opciones.Filtrar(skinOpcion8, rutaSteam, skinZip, skinTitulo, skinOpcionSeleccion8, opcionIdioma, recursos)
+                    FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option8_Label", skinOpcion8)
+                    FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option8_Selection", skinOpcionSeleccion8)
+                End If
+
+                If Not skinOpcionSeleccion9 = Nothing Then
+                    Opciones.Filtrar(skinOpcion9, rutaSteam, skinZip, skinTitulo, skinOpcionSeleccion9, opcionIdioma, recursos)
+                    FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option9_Label", skinOpcion6)
+                    FicherosINI.Escribir(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option9_Selection", skinOpcionSeleccion6)
                 End If
 
                 'REGISTRO---------------------------------------------------
@@ -791,6 +943,12 @@ Class MainWindow
         End If
 
         labelProgreso.Content = e.UserState.ToString
+
+        If e.UserState.ToString = recursos.GetString("skinInstalled", New CultureInfo(opcionIdioma)) Then
+            Dim notifyIcon As New TaskbarIcon
+            notifyIcon.ShowBalloonTip(recursos.GetString("skinInstalled", New CultureInfo(opcionIdioma)), "Steam Skins", BalloonIcon.Info)
+            notifyIcon.Dispose()
+        End If
 
     End Sub
 
@@ -944,6 +1102,8 @@ Class MainWindow
 
     Private Sub comboBoxOpcionesIdioma_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles comboBoxOpcionesIdioma.SelectionChanged
 
+        Dim idiomaPrevio As String = FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Config.ini", "Options", "Language")
+
         If comboBoxOpcionesIdioma.SelectedIndex = 0 Then
             FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Config.ini", "Options", "Language", "en-US")
             opcionIdioma = "en-US"
@@ -952,7 +1112,11 @@ Class MainWindow
             opcionIdioma = "es-ES"
         End If
 
-        CargarIdioma()
+        If Not idiomaPrevio = opcionIdioma Then
+            CargarIdioma()
+            ControlesEstado(False)
+            workerLimpieza.RunWorkerAsync()
+        End If
 
     End Sub
 
@@ -1040,6 +1204,60 @@ Class MainWindow
 
     End Sub
 
+    'VERSIONES-------------------------------------------------------------------------
+
+    Dim WithEvents workerVersiones As New BackgroundWorker
+
+    Private Sub workerVersiones_DoWork(sender As Object, e As DoWorkEventArgs) Handles workerVersiones.DoWork
+
+        versionSkinActualizada = Versiones.Generar(skinTitulo)
+
+    End Sub
+
+    Private Sub workerVersiones_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles workerVersiones.RunWorkerCompleted
+
+        If Not versionSkinActualizada = Nothing Then
+            If Not versionSkinInstalada = versionSkinActualizada Then
+                Dim notifyIcon As New TaskbarIcon
+                notifyIcon.ShowBalloonTip(recursos.GetString("updatingNewVersion", New CultureInfo(opcionIdioma)) + " " + skinTitulo, "Steam Skins", BalloonIcon.Info)
+                notifyIcon.Dispose()
+
+                skinCarpeta = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Data", "Folder")
+                skinZip = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Data", "Zip")
+
+                skinOpcion1 = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option1_Label")
+                skinOpcion2 = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option2_Label")
+                skinOpcion3 = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option3_Label")
+                skinOpcion4 = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option4_Label")
+                skinOpcion5 = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option5_Label")
+                skinOpcion6 = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option6_Label")
+                skinOpcion7 = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option7_Label")
+                skinOpcion8 = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option8_Label")
+                skinOpcion9 = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option9_Label")
+
+                skinOpcionSeleccion1 = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option1_Selection")
+                skinOpcionSeleccion2 = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option2_Selection")
+                skinOpcionSeleccion3 = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option3_Selection")
+                skinOpcionSeleccion4 = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option4_Selection")
+                skinOpcionSeleccion5 = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option5_Selection")
+                skinOpcionSeleccion6 = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option6_Selection")
+                skinOpcionSeleccion7 = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option7_Selection")
+                skinOpcionSeleccion8 = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option8_Selection")
+                skinOpcionSeleccion9 = FicherosINI.Leer(rutaSteam + "\skins\" + skinTitulo + "\SteamSkins.ini", "Options", "Option9_Selection")
+
+                workerDescarga.WorkerReportsProgress = True
+                workerDescarga.RunWorkerAsync()
+            Else
+                ControlesEstado(True)
+                labelProgreso.Content = recursos.GetString("succesfulLastVersion", New CultureInfo(opcionIdioma))
+            End If
+        Else
+            ControlesEstado(True)
+            labelProgreso.Content = recursos.GetString("succesfulLastVersion", New CultureInfo(opcionIdioma))
+        End If
+
+    End Sub
+
     'CERRAR-------------------------------------------------------------------------
 
     Private Sub Main_Closed(sender As Object, e As EventArgs) Handles Main.Closed
@@ -1070,6 +1288,12 @@ Class MainWindow
 
         Try
             workerDescarga.CancelAsync()
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            workerVersiones.CancelAsync()
         Catch ex As Exception
 
         End Try

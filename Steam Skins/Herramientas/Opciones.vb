@@ -4,7 +4,7 @@ Imports System.Resources
 
 Module Opciones
 
-    Public Sub FiltrarOpcion(skinOpcion As String, rutaSteam As String, skinZip As String, skinTitulo As String, skinSeleccion As String, opcionIdioma As String, recursos As ResourceManager)
+    Public Sub Filtrar(skinOpcion As String, rutaSteam As String, skinZip As String, skinTitulo As String, skinSeleccion As String, opcionIdioma As String, recursos As ResourceManager)
 
         If skinOpcion = recursos.GetString("customTheme", New CultureInfo(opcionIdioma)) Then
             CambiarTheme(rutaSteam, skinZip, skinTitulo, skinSeleccion, opcionIdioma, recursos)
