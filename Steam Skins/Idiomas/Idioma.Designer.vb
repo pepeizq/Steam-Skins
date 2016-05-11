@@ -65,6 +65,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Back.
+        '''</summary>
+        Friend Shared ReadOnly Property back() As String
+            Get
+                Return ResourceManager.GetString("back", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Dots.
         '''</summary>
         Friend Shared ReadOnly Property backgroundDots() As String
@@ -97,15 +106,6 @@ Namespace My.Resources
         Friend Shared ReadOnly Property backgroundRibbon() As String
             Get
                 Return ResourceManager.GetString("backgroundRibbon", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Back.
-        '''</summary>
-        Friend Shared ReadOnly Property buttonBarraSuperiorVolver() As String
-            Get
-                Return ResourceManager.GetString("buttonBarraSuperiorVolver", resourceCulture)
             End Get
         End Property
         
@@ -187,6 +187,15 @@ Namespace My.Resources
         Friend Shared ReadOnly Property colorCobalt() As String
             Get
                 Return ResourceManager.GetString("colorCobalt", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Colorized.
+        '''</summary>
+        Friend Shared ReadOnly Property colorColorized() As String
+            Get
+                Return ResourceManager.GetString("colorColorized", resourceCulture)
             End Get
         End Property
         
@@ -497,6 +506,78 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Games Details Color:.
+        '''</summary>
+        Friend Shared ReadOnly Property customGameDetails() As String
+            Get
+                Return ResourceManager.GetString("customGameDetails", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Grid Fade:.
+        '''</summary>
+        Friend Shared ReadOnly Property customGridFade() As String
+            Get
+                Return ResourceManager.GetString("customGridFade", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Hover Effect in Friends:.
+        '''</summary>
+        Friend Shared ReadOnly Property customHoverFriends() As String
+            Get
+                Return ResourceManager.GetString("customHoverFriends", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Library Dividers:.
+        '''</summary>
+        Friend Shared ReadOnly Property customLibraryDividers() As String
+            Get
+                Return ResourceManager.GetString("customLibraryDividers", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Notifications Position:.
+        '''</summary>
+        Friend Shared ReadOnly Property customNotificationPosition() As String
+            Get
+                Return ResourceManager.GetString("customNotificationPosition", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Notifications Quantity:.
+        '''</summary>
+        Friend Shared ReadOnly Property customNotificationQuantity() As String
+            Get
+                Return ResourceManager.GetString("customNotificationQuantity", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Notifications Timer:.
+        '''</summary>
+        Friend Shared ReadOnly Property customNotificationTimer() As String
+            Get
+                Return ResourceManager.GetString("customNotificationTimer", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Overlay Background:.
+        '''</summary>
+        Friend Shared ReadOnly Property customOverlayBackground() As String
+            Get
+                Return ResourceManager.GetString("customOverlayBackground", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Themes:.
         '''</summary>
         Friend Shared ReadOnly Property customTheme() As String
@@ -511,6 +592,42 @@ Namespace My.Resources
         Friend Shared ReadOnly Property customTitleBar() As String
             Get
                 Return ResourceManager.GetString("customTitleBar", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Transparent Uninstalled:.
+        '''</summary>
+        Friend Shared ReadOnly Property customTransparentUninstalled() As String
+            Get
+                Return ResourceManager.GetString("customTransparentUninstalled", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Create.
+        '''</summary>
+        Friend Shared ReadOnly Property editorCreate() As String
+            Get
+                Return ResourceManager.GetString("editorCreate", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Font Color.
+        '''</summary>
+        Friend Shared ReadOnly Property editorFontColor() As String
+            Get
+                Return ResourceManager.GetString("editorFontColor", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Title.
+        '''</summary>
+        Friend Shared ReadOnly Property editorTitle() As String
+            Get
+                Return ResourceManager.GetString("editorTitle", resourceCulture)
             End Get
         End Property
         
@@ -668,6 +785,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Editor.
+        '''</summary>
+        Friend Shared ReadOnly Property menuEditor() As String
+            Get
+                Return ResourceManager.GetString("menuEditor", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Options.
         '''</summary>
         Friend Shared ReadOnly Property menuOptions() As String
@@ -691,6 +817,42 @@ Namespace My.Resources
         Friend Shared ReadOnly Property no() As String
             Get
                 Return ResourceManager.GetString("no", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Bottom Left.
+        '''</summary>
+        Friend Shared ReadOnly Property positionBottomLeft() As String
+            Get
+                Return ResourceManager.GetString("positionBottomLeft", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Bottom Right.
+        '''</summary>
+        Friend Shared ReadOnly Property positionBottomRight() As String
+            Get
+                Return ResourceManager.GetString("positionBottomRight", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Top Left.
+        '''</summary>
+        Friend Shared ReadOnly Property positionTopLeft() As String
+            Get
+                Return ResourceManager.GetString("positionTopLeft", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Top Right.
+        '''</summary>
+        Friend Shared ReadOnly Property positionTopRight() As String
+            Get
+                Return ResourceManager.GetString("positionTopRight", resourceCulture)
             End Get
         End Property
         
@@ -835,6 +997,15 @@ Namespace My.Resources
         Friend Shared ReadOnly Property updatingNewVersion() As String
             Get
                 Return ResourceManager.GetString("updatingNewVersion", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Web.
+        '''</summary>
+        Friend Shared ReadOnly Property web() As String
+            Get
+                Return ResourceManager.GetString("web", resourceCulture)
             End Get
         End Property
         

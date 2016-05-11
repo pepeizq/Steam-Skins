@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="back" xml:space="preserve">
+    <value>Volver</value>
+  </data>
   <data name="backgroundDots" xml:space="preserve">
     <value>Puntos</value>
   </data>
@@ -128,9 +131,6 @@
   </data>
   <data name="backgroundRibbon" xml:space="preserve">
     <value>Cinta</value>
-  </data>
-  <data name="buttonBarraSuperiorVolver" xml:space="preserve">
-    <value>Volver</value>
   </data>
   <data name="buttonCleanAllSkins" xml:space="preserve">
     <value>Borrar todas las apariencias instaladas</value>
@@ -158,6 +158,9 @@
   </data>
   <data name="colorCobalt" xml:space="preserve">
     <value>Cobalto</value>
+  </data>
+  <data name="colorColorized" xml:space="preserve">
+    <value>Colorido</value>
   </data>
   <data name="colorCyan" xml:space="preserve">
     <value>Cian</value>
@@ -261,11 +264,47 @@
   <data name="customColor" xml:space="preserve">
     <value>Colores:</value>
   </data>
+  <data name="customGameDetails" xml:space="preserve">
+    <value>Color de los Detalles del Juego:</value>
+  </data>
+  <data name="customGridFade" xml:space="preserve">
+    <value>Descolorido en el Grid:</value>
+  </data>
+  <data name="customHoverFriends" xml:space="preserve">
+    <value>Efecto Hover en Amigos:</value>
+  </data>
+  <data name="customLibraryDividers" xml:space="preserve">
+    <value>Divisores en la Librería:</value>
+  </data>
+  <data name="customNotificationPosition" xml:space="preserve">
+    <value>Posición de las Notificaciones:</value>
+  </data>
+  <data name="customNotificationQuantity" xml:space="preserve">
+    <value>Cantidad de Notificaciones:</value>
+  </data>
+  <data name="customNotificationTimer" xml:space="preserve">
+    <value>Duración de las Notificaciones:</value>
+  </data>
+  <data name="customOverlayBackground" xml:space="preserve">
+    <value>Fondo en el Overlay:</value>
+  </data>
   <data name="customTheme" xml:space="preserve">
     <value>Temas:</value>
   </data>
   <data name="customTitleBar" xml:space="preserve">
     <value>Barra de titulo negra:</value>
+  </data>
+  <data name="customTransparentUninstalled" xml:space="preserve">
+    <value>Transparencia en los No Instalados:</value>
+  </data>
+  <data name="editorAvalaibleSkins" xml:space="preserve">
+    <value>Apariencias Disponibles:</value>
+  </data>
+  <data name="editorCreate" xml:space="preserve">
+    <value>Crear</value>
+  </data>
+  <data name="editorTitle" xml:space="preserve">
+    <value>Titulo</value>
   </data>
   <data name="errorConnecting" xml:space="preserve">
     <value>Error conectando</value>
@@ -315,8 +354,14 @@
   <data name="labelTopBarSteamFolder" xml:space="preserve">
     <value>Carpeta de Steam:</value>
   </data>
+  <data name="load" xml:space="preserve">
+    <value>Cargar</value>
+  </data>
   <data name="menuContact" xml:space="preserve">
     <value>Contacta</value>
+  </data>
+  <data name="menuEditor" xml:space="preserve">
+    <value>Editor</value>
   </data>
   <data name="menuOptions" xml:space="preserve">
     <value>Opciones</value>
@@ -326,6 +371,18 @@
   </data>
   <data name="no" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="positionBottomLeft" xml:space="preserve">
+    <value>Abajo Izquierda</value>
+  </data>
+  <data name="positionBottomRight" xml:space="preserve">
+    <value>Abajo Derecha</value>
+  </data>
+  <data name="positionTopLeft" xml:space="preserve">
+    <value>Arriba Izquierda</value>
+  </data>
+  <data name="positionTopRight" xml:space="preserve">
+    <value>Arriba Derecha</value>
   </data>
   <data name="progressDownload" xml:space="preserve">
     <value>Progreso de descarga:</value>
@@ -374,6 +431,9 @@
   </data>
   <data name="updatingNewVersion" xml:space="preserve">
     <value>Actualizando nueva versión de</value>
+  </data>
+  <data name="web" xml:space="preserve">
+    <value>Web</value>
   </data>
   <data name="yes" xml:space="preserve">
     <value>Si</value>

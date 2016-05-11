@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="back" xml:space="preserve">
+    <value>Back</value>
+  </data>
   <data name="backgroundDots" xml:space="preserve">
     <value>Dots</value>
   </data>
@@ -128,9 +131,6 @@
   </data>
   <data name="backgroundRibbon" xml:space="preserve">
     <value>Ribbon</value>
-  </data>
-  <data name="buttonBarraSuperiorVolver" xml:space="preserve">
-    <value>Back</value>
   </data>
   <data name="buttonCleanAllSkins" xml:space="preserve">
     <value>Delete all installed skins</value>
@@ -158,6 +158,9 @@
   </data>
   <data name="colorCobalt" xml:space="preserve">
     <value>Cobalt</value>
+  </data>
+  <data name="colorColorized" xml:space="preserve">
+    <value>Colorized</value>
   </data>
   <data name="colorCyan" xml:space="preserve">
     <value>Cyan</value>
@@ -261,11 +264,47 @@
   <data name="customColor" xml:space="preserve">
     <value>Colors:</value>
   </data>
+  <data name="customGameDetails" xml:space="preserve">
+    <value>Games Details Color:</value>
+  </data>
+  <data name="customGridFade" xml:space="preserve">
+    <value>Grid Fade:</value>
+  </data>
+  <data name="customHoverFriends" xml:space="preserve">
+    <value>Hover Effect in Friends:</value>
+  </data>
+  <data name="customLibraryDividers" xml:space="preserve">
+    <value>Library Dividers:</value>
+  </data>
+  <data name="customNotificationPosition" xml:space="preserve">
+    <value>Notifications Position:</value>
+  </data>
+  <data name="customNotificationQuantity" xml:space="preserve">
+    <value>Notifications Quantity:</value>
+  </data>
+  <data name="customNotificationTimer" xml:space="preserve">
+    <value>Notifications Timer:</value>
+  </data>
+  <data name="customOverlayBackground" xml:space="preserve">
+    <value>Overlay Background:</value>
+  </data>
   <data name="customTheme" xml:space="preserve">
     <value>Themes:</value>
   </data>
   <data name="customTitleBar" xml:space="preserve">
     <value>TitleBar Black:</value>
+  </data>
+  <data name="customTransparentUninstalled" xml:space="preserve">
+    <value>Transparent Uninstalled:</value>
+  </data>
+  <data name="editorAvalaibleSkins" xml:space="preserve">
+    <value>Avalaible Skins:</value>
+  </data>
+  <data name="editorCreate" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="editorTitle" xml:space="preserve">
+    <value>Title</value>
   </data>
   <data name="errorConnecting" xml:space="preserve">
     <value>Error connecting</value>
@@ -315,8 +354,14 @@
   <data name="labelTopBarSteamFolder" xml:space="preserve">
     <value>Steam Folder:</value>
   </data>
+  <data name="load" xml:space="preserve">
+    <value>Load</value>
+  </data>
   <data name="menuContact" xml:space="preserve">
     <value>Contact</value>
+  </data>
+  <data name="menuEditor" xml:space="preserve">
+    <value>Editor</value>
   </data>
   <data name="menuOptions" xml:space="preserve">
     <value>Options</value>
@@ -326,6 +371,18 @@
   </data>
   <data name="no" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="positionBottomLeft" xml:space="preserve">
+    <value>Bottom Left</value>
+  </data>
+  <data name="positionBottomRight" xml:space="preserve">
+    <value>Bottom Right</value>
+  </data>
+  <data name="positionTopLeft" xml:space="preserve">
+    <value>Top Left</value>
+  </data>
+  <data name="positionTopRight" xml:space="preserve">
+    <value>Top Right</value>
   </data>
   <data name="progressDownload" xml:space="preserve">
     <value>Progress download:</value>
@@ -374,6 +431,9 @@
   </data>
   <data name="updatingNewVersion" xml:space="preserve">
     <value>Updating new version of</value>
+  </data>
+  <data name="web" xml:space="preserve">
+    <value>Web</value>
   </data>
   <data name="yes" xml:space="preserve">
     <value>Yes</value>

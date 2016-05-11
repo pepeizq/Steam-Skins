@@ -19,6 +19,8 @@ Class MainWindow
     Dim skinUrlDescarga As String
     Dim skinSeleccionPosicion As String
 
+    Dim skinTipo As Boolean
+
     Dim skinOpcion1, skinOpcion2, skinOpcion3, skinOpcion4, skinOpcion5, skinOpcion6, skinOpcion7, skinOpcion8, skinOpcion9 As String
     Dim skinOpcionSeleccion1, skinOpcionSeleccion2, skinOpcionSeleccion3, skinOpcionSeleccion4, skinOpcionSeleccion5, skinOpcionSeleccion6, skinOpcionSeleccion7, skinOpcionSeleccion8, skinOpcionSeleccion9 As String
 
@@ -32,16 +34,17 @@ Class MainWindow
 
         Main.Title = "Steam Skins (" + version + ")"
 
-        Dim intFramework As Integer = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full", "Release", Nothing)
-
-        If intFramework < 378759 Then
-            MsgBox("You need to have installed at least .NET Framework 4.5.2 before starting the application")
-            Me.Close()
-        End If
+        'FICHEROS Y CARPETAS-----------------------
 
         If Not File.Exists(My.Application.Info.DirectoryPath + "\Config.ini") Then
             Modulos.CrearFicheroConfig()
         End If
+
+        If Not Directory.Exists(My.Application.Info.DirectoryPath + "\Editor") Then
+            Directory.CreateDirectory(My.Application.Info.DirectoryPath + "\Editor")
+        End If
+
+        'IDIOMA-----------------------
 
         Try
             If FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Config.ini", "Options", "Language") = Nothing Then
@@ -59,26 +62,47 @@ Class MainWindow
 
         CargarIdioma()
 
-        rutaSteam = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Valve\Steam", "SteamPath", Nothing)
-        rutaSteam = rutaSteam.Replace("/", "\")
-        labelRutaSteam.Content = rutaSteam.Trim
-        ControlesEstadoSkins()
-
-        Dim azar As Random = New Random()
-        comboBoxSkins.SelectedIndex = azar.Next(2, comboBoxSkins.Items.Count)
-
         If opcionIdioma = "es-ES" Then
             comboBoxOpcionesIdioma.SelectedIndex = 1
         Else
             comboBoxOpcionesIdioma.SelectedIndex = 0
         End If
 
+        'REGISTRO-----------------------
+
+        rutaSteam = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\Valve\Steam", "SteamPath", Nothing)
+        rutaSteam = rutaSteam.Replace("/", "\")
+        labelRutaSteam.Content = rutaSteam.Trim
+        ControlesEstadoSkins()
+
+        'OTRAS COSAS-----------------------
+
+        Modulos.GenerarListadoSkins(comboBoxSkins)
         Modulos.ImagenExpandir(columnImage1, imagePreview1)
 
         If Not skinInstalada = "Default" Then
             If Directory.Exists(rutaSteam + "\skins\" + skinInstalada) Then
                 If File.Exists(rutaSteam + "\skins\" + skinInstalada + "\SteamSkins.ini") Then
-                    comboBoxSkins.SelectedIndex = FicherosINI.Leer(rutaSteam + "\skins\" + skinInstalada + "\SteamSkins.ini", "Data", "Code")
+                    Dim tempSkinInstalada As String = skinInstalada
+
+                    If tempSkinInstalada.LastIndexOf("2") = (tempSkinInstalada.Length - 1) Then
+                        tempSkinInstalada = tempSkinInstalada.Replace("2", "²")
+                    End If
+
+                    Dim j As Integer = 0
+                    While j < comboBoxSkins.Items.Count
+                        Dim tempSkin As String = comboBoxSkins.Items(j).ToString
+
+                        If Not tempSkin = Nothing Then
+                            tempSkin = tempSkin.Replace("System.Windows.Controls.ComboBoxItem:", Nothing)
+                            tempSkin = tempSkin.Trim
+
+                            If tempSkin = tempSkinInstalada Then
+                                comboBoxSkins.SelectedIndex = j
+                            End If
+                        End If
+                        j += 1
+                    End While
                 End If
             End If
         End If
@@ -93,9 +117,11 @@ Class MainWindow
         labelTopBarSteamFolder.Content = recursos.GetString("labelTopBarSteamFolder", New CultureInfo(opcionIdioma))
         labelTopBarSkinUse.Content = recursos.GetString("labelTopBarSkinUse", New CultureInfo(opcionIdioma))
 
+        menuEditor.Header = recursos.GetString("menuEditor", New CultureInfo(opcionIdioma))
         menuOptions.Header = recursos.GetString("menuOptions", New CultureInfo(opcionIdioma))
         menuContact.Header = recursos.GetString("menuContact", New CultureInfo(opcionIdioma))
 
+        skinWebButton.Content = recursos.GetString("web", New CultureInfo(opcionIdioma))
         skinInstallButton.Content = recursos.GetString("skinInstallButton", New CultureInfo(opcionIdioma))
 
         tabControlAutorLabel.Content = recursos.GetString("tabControlAutorLabel", New CultureInfo(opcionIdioma))
@@ -107,8 +133,16 @@ Class MainWindow
 
         tabControlCustomizationLabel.Content = recursos.GetString("tabControlCustomizationLabel", New CultureInfo(opcionIdioma))
 
-        buttonBarraSuperiorVolver.Content = recursos.GetString("buttonBarraSuperiorVolver", New CultureInfo(opcionIdioma))
-        buttonBarraSuperiorVolverOpciones.Content = recursos.GetString("buttonBarraSuperiorVolver", New CultureInfo(opcionIdioma))
+        buttonBarraSuperiorVolverScreenshot.Content = recursos.GetString("back", New CultureInfo(opcionIdioma))
+        buttonBarraSuperiorVolverEditor.Content = recursos.GetString("back", New CultureInfo(opcionIdioma))
+        buttonBarraSuperiorVolverOpciones.Content = recursos.GetString("back", New CultureInfo(opcionIdioma))
+
+        buttonEditorCrear.Content = recursos.GetString("editorCreate", New CultureInfo(opcionIdioma))
+        labelEditorSkinsDisponibles.Content = recursos.GetString("editorAvalaibleSkins", New CultureInfo(opcionIdioma))
+        buttonEditorSkinsDisponibles.Content = recursos.GetString("load", New CultureInfo(opcionIdioma))
+        labelEditorTitulo.Content = recursos.GetString("editorTitle", New CultureInfo(opcionIdioma))
+        labelEditorAutor.Content = recursos.GetString("tabControlAutorLabel", New CultureInfo(opcionIdioma))
+        labelEditorWeb.Content = recursos.GetString("web", New CultureInfo(opcionIdioma))
 
         gridOptionsLanguageLabel.Content = recursos.GetString("gridOptionsLanguageLabel", New CultureInfo(opcionIdioma))
         gridOptionsLanguageLabelAviso.Content = recursos.GetString("gridOptionsLanguageLabelWarning", New CultureInfo(opcionIdioma))
@@ -119,7 +153,6 @@ Class MainWindow
     Private Sub ControlesEstado(estado As Boolean)
 
         menuOptions.IsEnabled = estado
-        buttonCleanAllSkins.IsEnabled = estado
 
         comboBoxSkins.IsEnabled = estado
         skinInstallButton.IsEnabled = estado
@@ -127,8 +160,23 @@ Class MainWindow
         gridSkinOpcion1.IsEnabled = estado
         gridSkinOpcion2.IsEnabled = estado
         gridSkinOpcion3.IsEnabled = estado
+        gridSkinOpcion4.IsEnabled = estado
+        gridSkinOpcion5.IsEnabled = estado
+        gridSkinOpcion6.IsEnabled = estado
+        gridSkinOpcion7.IsEnabled = estado
+        gridSkinOpcion8.IsEnabled = estado
+        gridSkinOpcion9.IsEnabled = estado
+
+        buttonBarraSuperiorVolverEditor.IsEnabled = estado
+        gridEditorSkinsDisponibles.IsEnabled = estado
+        gridEditorTitulo.IsEnabled = estado
+        gridEditorAutor.IsEnabled = estado
+        gridEditorWeb.IsEnabled = estado
+        gridEditorPersonalizacion.IsEnabled = estado
+        buttonEditorCrear.IsEnabled = estado
 
         buttonBarraSuperiorVolverOpciones.IsEnabled = estado
+        buttonCleanAllSkins.IsEnabled = estado
         comboBoxOpcionesIdioma.IsEnabled = estado
 
     End Sub
@@ -205,6 +253,8 @@ Class MainWindow
         Modulos.ImagenReducir(columnImage2, imagePreview2)
         Modulos.ImagenReducir(columnImage3, imagePreview3)
         Modulos.ImagenReducir(columnImage4, imagePreview4)
+
+        skinTipo = False
 
         Dim seleccion As String = comboBoxSkins.SelectedItem.ToString
 
@@ -313,6 +363,38 @@ Class MainWindow
 
             labelSkinOpcion2.Content = recursos.GetString("customBackground", New CultureInfo(opcionIdioma))
             Modulos.VisibilidadOpcion(listaBackgrounds, gridSkinOpcion2, comboBoxSkinOpcion2)
+
+            Dim listaGamesDetails As List(Of String) = New List(Of String)
+
+            listaGamesDetails.Add(recursos.GetString("colorSteamblue", New CultureInfo(opcionIdioma)))
+            listaGamesDetails.Add(recursos.GetString("colorColorized", New CultureInfo(opcionIdioma)))
+
+            labelSkinOpcion3.Content = recursos.GetString("customGameDetails", New CultureInfo(opcionIdioma))
+            Modulos.VisibilidadOpcion(listaGamesDetails, gridSkinOpcion3, comboBoxSkinOpcion3)
+
+            Dim listaGridFade As List(Of String) = New List(Of String)
+
+            listaGridFade.Add(recursos.GetString("yes", New CultureInfo(opcionIdioma)))
+            listaGridFade.Add(recursos.GetString("no", New CultureInfo(opcionIdioma)))
+
+            labelSkinOpcion4.Content = recursos.GetString("customGridFade", New CultureInfo(opcionIdioma))
+            Modulos.VisibilidadOpcion(listaGridFade, gridSkinOpcion4, comboBoxSkinOpcion4)
+
+            Dim listaHoverFriends As List(Of String) = New List(Of String)
+
+            listaHoverFriends.Add(recursos.GetString("yes", New CultureInfo(opcionIdioma)))
+            listaHoverFriends.Add(recursos.GetString("no", New CultureInfo(opcionIdioma)))
+
+            labelSkinOpcion5.Content = recursos.GetString("customHoverFriends", New CultureInfo(opcionIdioma))
+            Modulos.VisibilidadOpcion(listaHoverFriends, gridSkinOpcion5, comboBoxSkinOpcion5)
+
+            Dim listaLibraryDividers As List(Of String) = New List(Of String)
+
+            listaLibraryDividers.Add(recursos.GetString("yes", New CultureInfo(opcionIdioma)))
+            listaLibraryDividers.Add(recursos.GetString("no", New CultureInfo(opcionIdioma)))
+
+            labelSkinOpcion6.Content = recursos.GetString("customLibraryDividers", New CultureInfo(opcionIdioma))
+            Modulos.VisibilidadOpcion(listaLibraryDividers, gridSkinOpcion6, comboBoxSkinOpcion6)
 
             PreCargaInstallButton("Air-Classic-master", "airclassic", "Air Classic", listaImagenes, "http://airforsteam.com", Nothing, "http://www.patreon.com/inhibitor")
 
@@ -476,7 +558,64 @@ Class MainWindow
             listaImagenes.Add("Imagenes/Pressure2/pre3.png")
             listaImagenes.Add("Imagenes/Pressure2/pre4.png")
 
-            gridSkinOpciones.Visibility = Visibility.Collapsed
+            gridSkinOpciones.Visibility = Visibility.Visible
+
+            Dim listaNotificacionPosiciones As List(Of String) = New List(Of String)
+
+            listaNotificacionPosiciones.Add(recursos.GetString("positionBottomRight", New CultureInfo(opcionIdioma)))
+            listaNotificacionPosiciones.Add(recursos.GetString("positionBottomLeft", New CultureInfo(opcionIdioma)))
+            listaNotificacionPosiciones.Add(recursos.GetString("positionTopRight", New CultureInfo(opcionIdioma)))
+            listaNotificacionPosiciones.Add(recursos.GetString("positionTopLeft", New CultureInfo(opcionIdioma)))
+            listaNotificacionPosiciones.Sort()
+
+            labelSkinOpcion1.Content = recursos.GetString("customNotificationPosition", New CultureInfo(opcionIdioma))
+            Modulos.VisibilidadOpcion(listaNotificacionPosiciones, gridSkinOpcion1, comboBoxSkinOpcion1)
+
+            Dim listaNotificacionTiempo As List(Of String) = New List(Of String)
+
+            listaNotificacionTiempo.Add("1")
+            listaNotificacionTiempo.Add("2")
+            listaNotificacionTiempo.Add("3")
+            listaNotificacionTiempo.Add("4")
+            listaNotificacionTiempo.Add("5")
+            listaNotificacionTiempo.Add("6")
+            listaNotificacionTiempo.Add("7")
+            listaNotificacionTiempo.Add("8")
+            listaNotificacionTiempo.Add("9")
+
+            labelSkinOpcion2.Content = recursos.GetString("customNotificationTimer", New CultureInfo(opcionIdioma))
+            Modulos.VisibilidadOpcion(listaNotificacionTiempo, gridSkinOpcion2, comboBoxSkinOpcion2)
+
+            Dim listaNotificacionCantidad As List(Of String) = New List(Of String)
+
+            listaNotificacionCantidad.Add("1")
+            listaNotificacionCantidad.Add("2")
+            listaNotificacionCantidad.Add("3")
+            listaNotificacionCantidad.Add("4")
+            listaNotificacionCantidad.Add("5")
+            listaNotificacionCantidad.Add("6")
+            listaNotificacionCantidad.Add("7")
+            listaNotificacionCantidad.Add("8")
+            listaNotificacionCantidad.Add("9")
+
+            labelSkinOpcion3.Content = recursos.GetString("customNotificationQuantity", New CultureInfo(opcionIdioma))
+            Modulos.VisibilidadOpcion(listaNotificacionCantidad, gridSkinOpcion3, comboBoxSkinOpcion3)
+
+            Dim listaTransparienciaNoinstalados As List(Of String) = New List(Of String)
+
+            listaTransparienciaNoinstalados.Add(recursos.GetString("yes", New CultureInfo(opcionIdioma)))
+            listaTransparienciaNoinstalados.Add(recursos.GetString("no", New CultureInfo(opcionIdioma)))
+
+            labelSkinOpcion4.Content = recursos.GetString("customTransparentUninstalled", New CultureInfo(opcionIdioma))
+            Modulos.VisibilidadOpcion(listaTransparienciaNoinstalados, gridSkinOpcion4, comboBoxSkinOpcion4)
+
+            Dim listaOverlayFondo As List(Of String) = New List(Of String)
+
+            listaOverlayFondo.Add(recursos.GetString("yes", New CultureInfo(opcionIdioma)))
+            listaOverlayFondo.Add(recursos.GetString("no", New CultureInfo(opcionIdioma)))
+
+            labelSkinOpcion5.Content = recursos.GetString("customOverlayBackground", New CultureInfo(opcionIdioma))
+            Modulos.VisibilidadOpcion(listaOverlayFondo, gridSkinOpcion5, comboBoxSkinOpcion5)
 
             PreCargaInstallButton("Pressure2-master", "pre2", "Pressure²", listaImagenes, "http://www.pressureforsteam.com", Nothing, "https://www.patreon.com/dirtdiglett")
 
@@ -516,6 +655,43 @@ Class MainWindow
 
             PreCargaInstallButton("Threshold-Skin-master", "threshold", "Threshold", listaImagenes, "http://steamcommunity.com/groups/thresholdskin", Nothing, Nothing)
 
+        Else
+            For Each carpeta As String In Directory.GetDirectories(My.Application.Info.DirectoryPath + "\Editor")
+                Dim tempCarpeta As String = carpeta.Replace(My.Application.Info.DirectoryPath + "\Editor\", Nothing)
+
+                If seleccion = tempCarpeta Then
+                    skinTipo = True
+
+                    labelAutor.Content = FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + tempCarpeta + "\Config.ini", "Data", "Author")
+
+                    Dim listaImagenes As List(Of String) = New List(Of String)
+                    Dim j As Integer = 0
+
+                    For Each fichero As String In Directory.GetFiles(My.Application.Info.DirectoryPath + "\Editor\" + tempCarpeta + "\Screenshots\")
+                        If fichero.Contains(".png") Then
+                            If j < 4 Then
+                                listaImagenes.Add(fichero)
+                                j += 1
+                            End If
+                        End If
+
+                        If fichero.Contains(".jpg") Then
+                            If j < 4 Then
+                                listaImagenes.Add(fichero)
+                                j += 1
+                            End If
+                        End If
+                    Next
+
+                    If j = 0 Then
+                        listaImagenes.Add("Imagenes/Icono/editor.jpg")
+                    End If
+
+                    gridSkinOpciones.Visibility = Visibility.Collapsed
+
+                    PreCargaInstallButton(seleccion, seleccion, seleccion, listaImagenes, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + tempCarpeta + "\Config.ini", "Data", "Web"), Nothing, Nothing)
+                End If
+            Next
         End If
 
     End Sub
@@ -530,7 +706,12 @@ Class MainWindow
         textBoxSkinSeleccionada.Text = skinTitulo
         labelProgreso.Content = Nothing
 
-        skinWebButton.ToolTip = web
+        If Not web = Nothing Then
+            skinWebButton.ToolTip = web
+            skinWebButton.Visibility = Visibility.Visible
+        Else
+            skinWebButton.Visibility = Visibility.Collapsed
+        End If
 
         If Not paypal = Nothing Then
             skinDonarPaypalButton.ToolTip = paypal
@@ -642,12 +823,17 @@ Class MainWindow
 
         ControlesEstado(False)
 
-        If skinTitulo = "Default" Then
-            workerDefault.WorkerReportsProgress = True
-            workerDefault.RunWorkerAsync()
+        If skinTipo = False Then
+            If skinTitulo = "Default" Then
+                workerDefault.WorkerReportsProgress = True
+                workerDefault.RunWorkerAsync()
+            Else
+                workerDescarga.WorkerReportsProgress = True
+                workerDescarga.RunWorkerAsync()
+            End If
         Else
-            workerDescarga.WorkerReportsProgress = True
-            workerDescarga.RunWorkerAsync()
+            workerEditorGenerar.WorkerReportsProgress = True
+            workerEditorGenerar.RunWorkerAsync()
         End If
 
     End Sub
@@ -990,10 +1176,11 @@ Class MainWindow
 
     End Sub
 
-    Private Sub buttonBarraSuperiorVolver_Click(sender As Object, e As RoutedEventArgs) Handles buttonBarraSuperiorVolver.Click
+    Private Sub buttonBarraSuperiorVolverScreenshot_Click(sender As Object, e As RoutedEventArgs) Handles buttonBarraSuperiorVolverScreenshot.Click
 
         gridBarraSuperior.Visibility = Visibility.Visible
         gridPrincipal.Visibility = Visibility.Visible
+        menuEditor.Visibility = Visibility.Visible
         menuOptions.Visibility = Visibility.Visible
 
         gridPrincipalScreenshot.Visibility = Visibility.Collapsed
@@ -1005,6 +1192,7 @@ Class MainWindow
         OcultarMenusScreenshot()
         Dim brush As ImageBrush = buttonImagePreview1.Background
         imageScreenshotAmpliada.Source = brush.ImageSource
+        Modulos.ImagenDimensionesExpandida(buttonImagePreview1, imageScreenshotAmpliada)
 
     End Sub
 
@@ -1013,6 +1201,7 @@ Class MainWindow
         OcultarMenusScreenshot()
         Dim brush As ImageBrush = buttonImagePreview2.Background
         imageScreenshotAmpliada.Source = brush.ImageSource
+        Modulos.ImagenDimensionesExpandida(buttonImagePreview2, imageScreenshotAmpliada)
 
     End Sub
 
@@ -1021,6 +1210,7 @@ Class MainWindow
         OcultarMenusScreenshot()
         Dim brush As ImageBrush = buttonImagePreview3.Background
         imageScreenshotAmpliada.Source = brush.ImageSource
+        Modulos.ImagenDimensionesExpandida(buttonImagePreview3, imageScreenshotAmpliada)
 
     End Sub
 
@@ -1029,6 +1219,7 @@ Class MainWindow
         OcultarMenusScreenshot()
         Dim brush As ImageBrush = buttonImagePreview4.Background
         imageScreenshotAmpliada.Source = brush.ImageSource
+        Modulos.ImagenDimensionesExpandida(buttonImagePreview4, imageScreenshotAmpliada)
 
     End Sub
 
@@ -1036,6 +1227,7 @@ Class MainWindow
 
         gridBarraSuperior.Visibility = Visibility.Collapsed
         gridPrincipal.Visibility = Visibility.Collapsed
+        menuEditor.Visibility = Visibility.Collapsed
         menuOptions.Visibility = Visibility.Collapsed
 
         gridPrincipalScreenshot.Visibility = Visibility.Visible
@@ -1070,10 +1262,24 @@ Class MainWindow
 
     'MENU-------------------------------------------------------------------------
 
+    Private Sub menuEditor_Click(sender As Object, e As RoutedEventArgs) Handles menuEditor.Click
+
+        Modulos.GenerarEditorListadoSkins(comboBoxEditorSkinsDisponibles, gridEditorSkinsDisponibles)
+
+        gridBarraSuperior.Visibility = Visibility.Collapsed
+        gridPrincipal.Visibility = Visibility.Collapsed
+        menuEditor.Visibility = Visibility.Collapsed
+        menuOptions.Visibility = Visibility.Collapsed
+
+        gridPrincipalEditor.Visibility = Visibility.Visible
+
+    End Sub
+
     Private Sub menuOptions_Click(sender As Object, e As RoutedEventArgs) Handles menuOptions.Click
 
         gridBarraSuperior.Visibility = Visibility.Collapsed
         gridPrincipal.Visibility = Visibility.Collapsed
+        menuEditor.Visibility = Visibility.Collapsed
         menuOptions.Visibility = Visibility.Collapsed
 
         gridPrincipalOpciones.Visibility = Visibility.Visible
@@ -1088,12 +1294,410 @@ Class MainWindow
         End Try
     End Sub
 
+    'EDITOR-------------------------------------------------------------------------
+
+    Private Sub buttonBarraSuperiorVolverEditor_Click(sender As Object, e As RoutedEventArgs) Handles buttonBarraSuperiorVolverEditor.Click
+
+        gridBarraSuperior.Visibility = Visibility.Visible
+        gridPrincipal.Visibility = Visibility.Visible
+        menuEditor.Visibility = Visibility.Visible
+        menuOptions.Visibility = Visibility.Visible
+
+        gridPrincipalEditor.Visibility = Visibility.Collapsed
+
+    End Sub
+
+    Dim booleanEditorTitulo As Boolean = False
+    Dim booleanEditorAutor As Boolean = False
+
+    Private Sub textBoxEditorTitulo_TextChanged(sender As Object, e As TextChangedEventArgs) Handles textBoxEditorTitulo.TextChanged
+
+        If textBoxEditorTitulo.Text.Trim.Length > 0 Then
+            booleanEditorTitulo = True
+        Else
+            booleanEditorTitulo = False
+        End If
+
+        If booleanEditorTitulo = True Then
+            If booleanEditorAutor = True Then
+                buttonEditorCrear.IsEnabled = True
+            Else
+                buttonEditorCrear.IsEnabled = False
+            End If
+        Else
+            buttonEditorCrear.IsEnabled = False
+        End If
+
+    End Sub
+
+    Private Sub textBoxEditorAutor_TextChanged(sender As Object, e As TextChangedEventArgs) Handles textBoxEditorAutor.TextChanged
+
+        If textBoxEditorAutor.Text.Trim.Length > 0 Then
+            booleanEditorAutor = True
+        Else
+            booleanEditorAutor = False
+        End If
+
+        If booleanEditorTitulo = True Then
+            If booleanEditorAutor = True Then
+                buttonEditorCrear.IsEnabled = True
+            Else
+                buttonEditorCrear.IsEnabled = False
+            End If
+        Else
+            buttonEditorCrear.IsEnabled = False
+        End If
+
+    End Sub
+
+    Private Sub buttonEditorSkinsDisponibles_Click(sender As Object, e As RoutedEventArgs) Handles buttonEditorSkinsDisponibles.Click
+
+        Dim titulo As String = comboBoxEditorSkinsDisponibles.SelectedItem.ToString
+
+        titulo = titulo.Replace("System.Windows.Controls.ComboBoxItem:", Nothing)
+        titulo = titulo.Trim
+
+        textBoxEditorTitulo.Text = FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Data", "Title")
+        textBoxEditorAutor.Text = FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Data", "Author")
+        textBoxEditorWeb.Text = FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Data", "Web")
+
+        Try
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtonbordercolor, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "bordercolor"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtondarkcorner, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "darkcorner"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtontext, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "buttontext"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtontextactive, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "buttontextactive"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtonFace, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "ButtonFace"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtonFace2, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "ButtonFace2"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtonFace3, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "ButtonFace3"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtonFaceDisabled, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "ButtonFaceDisabled"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtonFaceHover, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "ButtonFaceHover"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtonFaceActive, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "ButtonFaceActive"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtonFaceFocus, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "ButtonFaceFocus"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtonFaceActiveFocus, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "ButtonFaceActiveFocus"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtonBlueBorder, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "BlueBorder"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtonBorder, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "ButtonBorder"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtonBorderSubtle, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "ButtonBorderSubtle"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtonBorderPage, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "ButtonBorderPage"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtonBorderDisabled, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "ButtonBorderDisabled"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtonBorderDisabled2, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "ButtonBorderDisabled2"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtonBorderActive, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "ButtonBorderActive"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtonBorderFocus, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "ButtonBorderFocus"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorButtonBorderFocusSubtle, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "ButtonBorderFocusSubtle"))
+
+            Modulos.TraducirRGBA(colorCanvasEditorColorText, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "Text"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorText2, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "Text2"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorTextDisabled, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "TextDisabled"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorTextHover, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "TextHover"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorTextSelected, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "TextSelected"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorTextEntrySelected, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "TextEntrySelected"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorTextSelectedBG, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "TextSelectedBG"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorTextGlowHover, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "TextGlowHover"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorTextGlowSelected, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "TextGlowSelected"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorTextGlowHoverSm, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "TextGlowHoverSm"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorTextGlowSelectedSm, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "TextGlowSelectedSm"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorTextredborder, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "redborder"))
+
+            Modulos.TraducirRGBA(colorCanvasEditorColorLabelNav, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "NavLabel"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorLabel, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "Label"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorLabel2, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "Label2"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorLabelDisabled, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "LabelDisabled"))
+            Modulos.TraducirRGBA(colorCanvasEditorColorLabelFocus, FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + titulo + "\Config.ini", "Colors", "LabelFocus"))
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+    Dim editorTitulo, editorAutor, editorWeb, editorFuente As String
+    Dim editorColorButtonbordercolor, editorColorButtondarkcorner, editorColorButtontext, editorColorButtontextactive, editorColorButtonFace, editorColorButtonFace2, editorColorButtonFace3, editorColorButtonFaceDisabled, editorColorButtonFaceHover, editorColorButtonFaceActive, editorColorButtonFaceFocus, editorColorButtonFaceActiveFocus, editorColorButtonBlueBorder, editorColorButtonBorder, editorColorButtonBorderSubtle, editorColorButtonBorderPage, editorColorButtonBorderDisabled, editorColorButtonBorderDisabled2, editorColorButtonBorderActive, editorColorButtonBorderFocus, editorColorButtonBorderFocusSubtle As String
+    Dim editorColorText, editorColorText2, editorColorTextDisabled, editorColorTextHover, editorColorTextSelected, editorColorTextEntrySelected, editorColorTextSelectedBG, editorColorTextGlowHover, editorColorTextGlowSelected, editorColorTextGlowHoverSm, editorColorTextGlowSelectedSm, editorColorTextredborder As String
+    Dim editorColorLabelNav, editorColorLabel, editorColorLabel2, editorColorLabelDisabled, editorColorLabelFocus As String
+
+    Private Sub buttonEditorCrear_Click(sender As Object, e As RoutedEventArgs) Handles buttonEditorCrear.Click
+
+        If Not textBoxEditorTitulo.Text = Nothing Then
+            editorTitulo = textBoxEditorTitulo.Text
+            editorTitulo = editorTitulo.Trim
+        End If
+
+        If Not textBoxEditorAutor.Text = Nothing Then
+            editorAutor = textBoxEditorAutor.Text
+            editorAutor = editorAutor.Trim
+        End If
+
+        If Not textBoxEditorWeb.Text = Nothing Then
+            editorWeb = textBoxEditorWeb.Text
+            editorWeb = editorWeb.Trim
+
+            If editorWeb.Contains("http://") Or editorWeb.Contains("https://") Then
+                editorWeb = editorWeb
+            Else
+                editorWeb = Nothing
+            End If
+        End If
+
+        editorFuente = comboBoxEditorFonts.SelectedItem.ToString
+        editorFuente = editorFuente.Replace("System.Windows.Controls.ComboBoxItem:", Nothing)
+        editorFuente = editorFuente.Trim
+
+        If Not editorTitulo = Nothing Then
+            If Not editorAutor = Nothing Then
+                editorTitulo = editorTitulo.Replace("<", Nothing)
+                editorTitulo = editorTitulo.Replace(">", Nothing)
+                editorTitulo = editorTitulo.Replace(":", Nothing)
+                editorTitulo = editorTitulo.Replace(Chr(34), Nothing)
+                editorTitulo = editorTitulo.Replace("/", Nothing)
+                editorTitulo = editorTitulo.Replace("\", Nothing)
+                editorTitulo = editorTitulo.Replace("|", Nothing)
+                editorTitulo = editorTitulo.Replace("?", Nothing)
+                editorTitulo = editorTitulo.Replace("*", Nothing)
+
+                editorColorButtonbordercolor = Modulos.TraducirColor(colorCanvasEditorColorButtonbordercolor)
+                editorColorButtondarkcorner = Modulos.TraducirColor(colorCanvasEditorColorButtondarkcorner)
+                editorColorButtontext = Modulos.TraducirColor(colorCanvasEditorColorButtontext)
+                editorColorButtontextactive = Modulos.TraducirColor(colorCanvasEditorColorButtontextactive)
+                editorColorButtonFace = Modulos.TraducirColor(colorCanvasEditorColorButtonFace)
+                editorColorButtonFace2 = Modulos.TraducirColor(colorCanvasEditorColorButtonFace2)
+                editorColorButtonFace3 = Modulos.TraducirColor(colorCanvasEditorColorButtonFace3)
+                editorColorButtonFaceDisabled = Modulos.TraducirColor(colorCanvasEditorColorButtonFaceDisabled)
+                editorColorButtonFaceHover = Modulos.TraducirColor(colorCanvasEditorColorButtonFaceHover)
+                editorColorButtonFaceActive = Modulos.TraducirColor(colorCanvasEditorColorButtonFaceActive)
+                editorColorButtonFaceFocus = Modulos.TraducirColor(colorCanvasEditorColorButtonFaceFocus)
+                editorColorButtonFaceActiveFocus = Modulos.TraducirColor(colorCanvasEditorColorButtonFaceActiveFocus)
+                editorColorButtonBlueBorder = Modulos.TraducirColor(colorCanvasEditorColorButtonBlueBorder)
+                editorColorButtonBorder = Modulos.TraducirColor(colorCanvasEditorColorButtonBorder)
+                editorColorButtonBorderSubtle = Modulos.TraducirColor(colorCanvasEditorColorButtonBorderSubtle)
+                editorColorButtonBorderPage = Modulos.TraducirColor(colorCanvasEditorColorButtonBorderPage)
+                editorColorButtonBorderDisabled = Modulos.TraducirColor(colorCanvasEditorColorButtonBorderDisabled)
+                editorColorButtonBorderDisabled2 = Modulos.TraducirColor(colorCanvasEditorColorButtonBorderDisabled2)
+                editorColorButtonBorderActive = Modulos.TraducirColor(colorCanvasEditorColorButtonBorderActive)
+                editorColorButtonBorderFocus = Modulos.TraducirColor(colorCanvasEditorColorButtonBorderFocus)
+                editorColorButtonBorderFocusSubtle = Modulos.TraducirColor(colorCanvasEditorColorButtonBorderFocusSubtle)
+
+                editorColorText = Modulos.TraducirColor(colorCanvasEditorColorText)
+                editorColorText2 = Modulos.TraducirColor(colorCanvasEditorColorText2)
+                editorColorTextDisabled = Modulos.TraducirColor(colorCanvasEditorColorTextDisabled)
+                editorColorTextHover = Modulos.TraducirColor(colorCanvasEditorColorTextHover)
+                editorColorTextSelected = Modulos.TraducirColor(colorCanvasEditorColorTextSelected)
+                editorColorTextEntrySelected = Modulos.TraducirColor(colorCanvasEditorColorTextEntrySelected)
+                editorColorTextSelectedBG = Modulos.TraducirColor(colorCanvasEditorColorTextSelectedBG)
+                editorColorTextGlowHover = Modulos.TraducirColor(colorCanvasEditorColorTextGlowHover)
+                editorColorTextGlowSelected = Modulos.TraducirColor(colorCanvasEditorColorTextGlowSelected)
+                editorColorTextGlowHoverSm = Modulos.TraducirColor(colorCanvasEditorColorTextGlowHoverSm)
+                editorColorTextGlowSelectedSm = Modulos.TraducirColor(colorCanvasEditorColorTextGlowSelectedSm)
+                editorColorTextredborder = Modulos.TraducirColor(colorCanvasEditorColorTextredborder)
+
+                editorColorLabelNav = Modulos.TraducirColor(colorCanvasEditorColorLabelNav)
+                editorColorLabel = Modulos.TraducirColor(colorCanvasEditorColorLabel)
+                editorColorLabel2 = Modulos.TraducirColor(colorCanvasEditorColorLabel2)
+                editorColorLabelDisabled = Modulos.TraducirColor(colorCanvasEditorColorLabelDisabled)
+                editorColorLabelFocus = Modulos.TraducirColor(colorCanvasEditorColorLabelFocus)
+
+                ControlesEstado(False)
+
+                workerEditorCrear.WorkerReportsProgress = True
+                workerEditorCrear.RunWorkerAsync()
+            End If
+        End If
+
+    End Sub
+
+    Dim WithEvents workerEditorCrear As New BackgroundWorker
+
+    Private Sub workerEditorCrear_DoWork(sender As Object, e As DoWorkEventArgs) Handles workerEditorCrear.DoWork
+
+        If Directory.Exists(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo) Then
+            Directory.Delete(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo, True)
+        End If
+
+        If Not Directory.Exists(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo) Then
+            Directory.CreateDirectory(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo)
+            Directory.CreateDirectory(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Screenshots")
+
+            Modulos.CrearFicheroEditor(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo)
+
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Data", "Title", editorTitulo)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Data", "Author", editorAutor)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Data", "Web", editorWeb)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Data", "Font", editorFuente)
+
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "bordercolor", editorColorButtonbordercolor)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "darkcorner", editorColorButtondarkcorner)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "buttontext", editorColorButtontext)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "buttontextactive", editorColorButtontextactive)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "ButtonFace", editorColorButtonFace)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "ButtonFace2", editorColorButtonFace2)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "ButtonFace3", editorColorButtonFace3)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "ButtonFaceDisabled", editorColorButtonFaceDisabled)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "ButtonFaceHover", editorColorButtonFaceHover)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "ButtonFaceActive", editorColorButtonFaceActive)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "ButtonFaceFocus", editorColorButtonFaceFocus)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "ButtonFaceActiveFocus", editorColorButtonFaceActiveFocus)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "ButtonBlueBorder", editorColorButtonBlueBorder)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "ButtonBorder", editorColorButtonBorder)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "ButtonBorderSubtle", editorColorButtonBorderSubtle)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "ButtonBorderPage", editorColorButtonBorderPage)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "ButtonBorderDisabled", editorColorButtonBorderDisabled)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "ButtonBorderDisabled2", editorColorButtonBorderDisabled2)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "ButtonBorderActive", editorColorButtonBorderActive)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "ButtonBorderFocus", editorColorButtonBorderFocus)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "ButtonBorderFocusSubtle", editorColorButtonBorderFocusSubtle)
+
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "Text", editorColorText)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "Text2", editorColorText2)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "TextDisabled", editorColorTextDisabled)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "TextHover", editorColorTextHover)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "TextSelected", editorColorTextSelected)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "TextEntrySelected", editorColorTextEntrySelected)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "TextSelectedBG", editorColorTextSelectedBG)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "TextGlowHover", editorColorTextGlowHover)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "TextGlowSelected", editorColorTextGlowSelected)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "TextGlowHoverSm", editorColorTextGlowHoverSm)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "TextGlowSelectedsm", editorColorTextGlowSelectedSm)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "redborder", editorColorTextredborder)
+
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "NavLabel", editorColorLabelNav)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "Label", editorColorLabel)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "Label2", editorColorLabel2)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "LabelDisabled", editorColorLabelDisabled)
+            FicherosINI.Escribir(My.Application.Info.DirectoryPath + "\Editor\" + editorTitulo + "\Config.ini", "Colors", "LabelFocus", editorColorLabelFocus)
+        End If
+
+    End Sub
+
+    Private Sub workerEditorCrear_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles workerEditorCrear.RunWorkerCompleted
+
+        skinTitulo = editorTitulo
+        Modulos.GenerarEditorListadoSkins(comboBoxEditorSkinsDisponibles, gridEditorSkinsDisponibles)
+        workerEditorGenerar.WorkerReportsProgress = True
+        workerEditorGenerar.RunWorkerAsync()
+
+    End Sub
+
+    Private Sub workerEditorCrear_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles workerEditorCrear.ProgressChanged
+
+    End Sub
+
+    Dim WithEvents workerEditorGenerar As New BackgroundWorker
+
+    Private Sub workerEditorGenerar_DoWork(sender As Object, e As DoWorkEventArgs) Handles workerEditorGenerar.DoWork
+
+        If Directory.Exists(rutaSteam + "\skins\" + skinTitulo) Then
+            Directory.Delete(rutaSteam + "\skins\" + skinTitulo, True)
+        End If
+
+        If Directory.Exists(rutaSteam + "\resource") Then
+            FileIO.FileSystem.CopyDirectory(rutaSteam + "\resource", rutaSteam + "\skins\" + skinTitulo + "\resource")
+        End If
+
+        If Directory.Exists(rutaSteam + "\graphics") Then
+            FileIO.FileSystem.CopyDirectory(rutaSteam + "\graphics", rutaSteam + "\skins\" + skinTitulo + "\graphics")
+        End If
+
+        Dim ini As String
+        Using sr As New StreamReader(rutaSteam + "\skins\" + skinTitulo + "\resource\styles\steam.styles")
+            ini = sr.ReadToEnd()
+
+            ini = ini.Replace("basefont=" + Chr(34) + "Arial", "basefont=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Data", "Font"))
+
+            ini = ini.Replace("bordercolor=" + Chr(34) + "102 102 102 255", "bordercolor=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "bordercolor"))
+            ini = ini.Replace("darkcorner=" + Chr(34) + "73 73 73 255", "darkcorner=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "darkcorner"))
+            ini = ini.Replace("buttontext=Text", "buttontext=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "buttontext") + Chr(34))
+            ini = ini.Replace("buttontextactive=Text", "buttontextactive=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "buttontextactive") + Chr(34))
+            ini = ini.Replace("ButtonFace=" + Chr(34) + "102 102 102 200", "ButtonFace=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "ButtonFace"))
+            ini = ini.Replace("ButtonFace2=" + Chr(34) + "80 80 80 255", "ButtonFace2=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "ButtonFace2"))
+            ini = ini.Replace("ButtonFace3=" + Chr(34) + "92 92 92 255", "ButtonFace3=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "ButtonFace3"))
+            ini = ini.Replace("ButtonFaceDisabled=" + Chr(34) + "102 102 102 15", "ButtonFaceDisabled=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "ButtonFaceDisabled"))
+            ini = ini.Replace("ButtonFaceHover=" + Chr(34) + "99 99 99  240", "ButtonFaceHover=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "ButtonFaceHover"))
+            ini = ini.Replace("ButtonFaceActive=" + Chr(34) + "102 102 102  240", "ButtonFaceActive=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "ButtonFaceActive"))
+            ini = ini.Replace("ButtonFaceFocus=" + Chr(34) + "105 105 105  240", "ButtonFaceFocus=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "ButtonFaceFocus"))
+            ini = ini.Replace("ButtonFaceActiveFocus=" + Chr(34) + "105 105 105  255", "ButtonFaceActiveFocus=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "ButtonFaceActiveFocus"))
+            ini = ini.Replace("BlueBorder=" + Chr(34) + "33 33 33 255", "BlueBorder=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "BlueBorder"))
+            ini = ini.Replace("ButtonBorder=" + Chr(34) + "89 89 89 255", "ButtonBorder=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "ButtonBorder"))
+            ini = ini.Replace("ButtonBorderSubtle=" + Chr(34) + "79 79 79 255", "ButtonBorderSubtle=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "ButtonBorderSubtle"))
+            ini = ini.Replace("ButtonBorderPage=" + Chr(34) + "124 124 124 255", "ButtonBorderPage=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "ButtonBorderPage"))
+            ini = ini.Replace("ButtonBorderDisabled=" + Chr(34) + "75 75 75 255", "ButtonBorderDisabled=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "ButtonBorderDisabled"))
+            ini = ini.Replace("ButtonBorderDisabled2=" + Chr(34) + "65 65 65 255", "ButtonBorderDisabled2=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "ButtonBorderDisabled2"))
+            ini = ini.Replace("ButtonBorderActive=" + Chr(34) + "125 125 125 255", "ButtonBorderActive=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "ButtonBorderActive"))
+            ini = ini.Replace("ButtonBorderFocus=" + Chr(34) + "137 137 137 255", "ButtonBorderFocus=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "ButtonBorderFocus"))
+            ini = ini.Replace("ButtonBorderFocusSubtle=" + Chr(34) + "122 122 122 255", "ButtonBorderFocusSubtle=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "ButtonBorderFocusSubtle"))
+
+            ini = ini.Replace("Text=" + Chr(34) + "207 207 207 255", "Text=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "Text"))
+            ini = ini.Replace("Text2=" + Chr(34) + "180 180 180 255", "Text2=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "Text2"))
+            ini = ini.Replace("TextDisabled=" + Chr(34) + "99 99 99 255", "TextDisabled=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "TextDisabled"))
+            ini = ini.Replace("TextHover=" + Chr(34) + "226 226 226 255", "TextHover=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "TextHover"))
+            ini = ini.Replace("TextSelected=" + Chr(34) + "239 239 239 255", "TextSelected=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "TextSelected"))
+            ini = ini.Replace("TextentrySelected=" + Chr(34) + "237 237 237 235", "TextentrySelected=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "TextEntrySelected"))
+            ini = ini.Replace("TextSelectedBG=" + Chr(34) + "37 89 148 235", "TextSelectedBG=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "TextSelectedBG"))
+            ini = ini.Replace("TextGlowHover=" + Chr(34) + "124 124 124 235", "TextGlowHover=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "TextGlowHover"))
+            ini = ini.Replace("TextGlowSelected=" + Chr(34) + "169 169 169 235", "TextGlowSelected=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "TextGlowSelected"))
+            ini = ini.Replace("TextGlowHoverSm=" + Chr(34) + "123 123 123 235", "TextGlowHoverSm=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "TextGlowHoverSm"))
+            ini = ini.Replace("TextGlowSelectedSm=" + Chr(34) + "169 169 169 235", "TextGlowSelectedSm=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "TextGlowSelectedSm"))
+            ini = ini.Replace("redborder=" + Chr(34) + "169 72 71 235", "redborder=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "redborder"))
+
+            ini = ini.Replace("NavLabel=" + Chr(34) + "153 153 153 235", "NavLabel=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "NavLabel"))
+            ini = ini.Replace("Label=" + Chr(34) + "168 168 168 235", "Label=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "Label"))
+            ini = ini.Replace("Label2=" + Chr(34) + "111 111 111 235", "Label2=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "Label2"))
+            ini = ini.Replace("LabelDisabled=" + Chr(34) + "115 115 115 235", "LabelDisabled=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "LabelDisabled"))
+            ini = ini.Replace("LabelFocus=" + Chr(34) + "196 196 196 235", "LabelFocus=" + Chr(34) + FicherosINI.Leer(My.Application.Info.DirectoryPath + "\Editor\" + skinTitulo + "\Config.ini", "Colors", "LabelFocus"))
+        End Using
+
+        File.WriteAllText(rutaSteam + "\skins\" + skinTitulo + "\resource\styles\steam.styles", ini)
+
+        'REGISTRO---------------------------------------------------
+
+        Try
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\Valve\Steam", "SkinV4", skinTitulo)
+        Catch ex3 As Exception
+            workerEditorGenerar.ReportProgress(0, recursos.GetString("errorRegistryWindows", New CultureInfo(opcionIdioma)))
+        End Try
+
+        'PROCESO---------------------------------------------------
+
+        Dim i As Integer = 0
+
+        While i < 100
+            Dim tempProc() As Process = Process.GetProcessesByName("Steam")
+
+            If tempProc.Count = 0 Then
+                workerEditorGenerar.ReportProgress(0, recursos.GetString("startingSteam", New CultureInfo(opcionIdioma)))
+                Process.Start(rutaSteam + "\steam.exe")
+                Exit While
+            Else
+                Try
+                    Process.GetProcessesByName("Steam")(0).Kill()
+                Catch ex As Exception
+
+                End Try
+            End If
+            i += 1
+        End While
+
+        workerEditorGenerar.ReportProgress(0, recursos.GetString("skinInstalled", New CultureInfo(opcionIdioma)))
+
+    End Sub
+
+    Private Sub workerEditorGenerar_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles workerEditorGenerar.RunWorkerCompleted
+
+        ControlesEstado(True)
+
+    End Sub
+
+    Private Sub workerEditorGenerar_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles workerEditorGenerar.ProgressChanged
+
+    End Sub
+
+    Private Sub PrecargarDatosEditor()
+
+    End Sub
+
     'OPCIONES-------------------------------------------------------------------------
 
     Private Sub buttonBarraSuperiorVolverOpciones_Click(sender As Object, e As RoutedEventArgs) Handles buttonBarraSuperiorVolverOpciones.Click
 
         gridBarraSuperior.Visibility = Visibility.Visible
         gridPrincipal.Visibility = Visibility.Visible
+        menuEditor.Visibility = Visibility.Visible
         menuOptions.Visibility = Visibility.Visible
 
         gridPrincipalOpciones.Visibility = Visibility.Collapsed
@@ -1294,6 +1898,18 @@ Class MainWindow
 
         Try
             workerVersiones.CancelAsync()
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            workerEditorCrear.CancelAsync()
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            workerEditorGenerar.CancelAsync()
         Catch ex As Exception
 
         End Try

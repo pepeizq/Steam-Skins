@@ -94,6 +94,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ColorPickerLib">
+      <HintPath>..\..\..\..\..\Downloads\ColorPickerLib.dll</HintPath>
+    </Reference>
     <Reference Include="Elysium">
       <HintPath>..\..\OfertasPanda2\OfertasPanda2\bin\x86\Debug\Elysium.dll</HintPath>
     </Reference>
@@ -140,11 +143,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Idioma.resx</DependentUpon>
     </Compile>
-    <Compile Include="Idiomas\Idioma.es-ES.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Idioma.es-ES.resx</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.vb">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -189,13 +187,9 @@
     </Compile>
     <EmbeddedResource Include="Idiomas\Idioma.resx">
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Idioma.Designer.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Idiomas\Idioma.es-ES.resx">
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Idioma.es-ES.Designer.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>PublicVbMyResourcesResXFileCodeGenerator</Generator>
@@ -310,6 +304,9 @@
     <Resource Include="Imagenes\Default\default2.PNG" />
     <Resource Include="Imagenes\Default\default3.PNG" />
     <Resource Include="Imagenes\Default\default4.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\Icono\editor.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
