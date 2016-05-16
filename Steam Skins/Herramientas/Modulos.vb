@@ -3,8 +3,6 @@ Imports System.Globalization
 Imports System.IO
 Imports System.Resources
 Imports System.Windows.Resources
-Imports ColorPickerLib.Controls
-Imports System.Drawing.Text
 
 Module Modulos
 
@@ -46,7 +44,7 @@ Module Modulos
 
         Dim itemDefault As New ComboBoxItem
         itemDefault.Content = "Default"
-        itemDefault.FontSize = 14
+        itemDefault.FontSize = 15
         itemDefault.Margin = New Thickness(5, 0, 5, 0)
 
         comboBox.Items.Add(itemDefault)
@@ -55,7 +53,7 @@ Module Modulos
         For Each temp As String In listaOrdenar
             Dim item As New ComboBoxItem
             item.Content = temp.Trim
-            item.FontSize = 14
+            item.FontSize = 15
             item.Margin = New Thickness(5, 0, 5, 0)
 
             comboBox.Items.Add(item)
@@ -63,29 +61,6 @@ Module Modulos
 
         Dim azar As Random = New Random()
         comboBox.SelectedIndex = azar.Next(2, comboBox.Items.Count)
-
-    End Sub
-
-    Public Sub GenerarEditorListadoSkins(comboBox As ComboBox, grid As Grid)
-
-        comboBox.Items.Clear()
-
-        For Each carpeta As String In Directory.GetDirectories(My.Application.Info.DirectoryPath + "\Editor")
-            Dim item As New ComboBoxItem
-            item.Content = carpeta.Replace(My.Application.Info.DirectoryPath + "\Editor\", Nothing)
-            item.FontSize = 14
-            item.Margin = New Thickness(5, 0, 5, 0)
-
-            comboBox.Items.Add(item)
-        Next
-
-        If comboBox.Items.Count > 0 Then
-            Dim azar As Random = New Random()
-            comboBox.SelectedIndex = azar.Next(0, comboBox.Items.Count)
-            grid.Visibility = Visibility.Visible
-        Else
-            grid.Visibility = Visibility.Collapsed
-        End If
 
     End Sub
 
@@ -165,62 +140,26 @@ Module Modulos
 
     End Sub
 
-    Public Sub CrearFicheroEditor(path As String)
-
-        Using fs As FileStream = File.Create(path + "\Config.ini")
-            Dim info As Byte() = New UTF8Encoding(True).GetBytes("[")
-            fs.Write(info, 0, info.Length)
-        End Using
-
-        Dim lineas() As String = {"Data]", " ", "[Colors]"}
-
-        File.AppendAllLines(path + "\Config.ini", lineas)
-
-    End Sub
-
-    Public Function TraducirColor(color As ColorCanvas) As String
-
-        Dim colorFinal As String
-
-        colorFinal = color.SelectedColor.Value.R.ToString + " " + color.SelectedColor.Value.G.ToString + " " + color.SelectedColor.Value.B.ToString + " " + color.SelectedColor.Value.A.ToString
-
-        Return colorFinal
-    End Function
-
-    Public Sub TraducirRGBA(color As ColorCanvas, traducir As String)
-
-        Dim temp, temp2 As String
-        Dim int, int2, int3 As Integer
-
-        int = traducir.IndexOf(" ")
-        temp = traducir.Remove(0, int + 1)
-
-        color.R = traducir.Remove(int, traducir.Length - int)
-
-        int2 = temp.IndexOf(" ")
-        temp2 = temp.Remove(0, int2 + 1)
-
-        color.G = temp.Remove(int2, temp.Length - int2)
-
-        int3 = temp2.IndexOf(" ")
-
-        color.B = temp2.Remove(int3, temp2.Length - int3)
-        color.A = temp2.Remove(0, int3 + 1)
-
-    End Sub
-
     Public Sub VisibilidadImagen(button As Button, imagen As ImageBrush, url As String)
 
         If Not url = Nothing Then
-            Dim uri As Uri = New Uri(url, UriKind.RelativeOrAbsolute)
-            Dim info As StreamResourceInfo = Application.GetResourceStream(uri)
-            Dim bit As BitmapFrame = BitmapFrame.Create(info.Stream)
+            Dim imagenDatos As System.Drawing.Image
 
-            imagen.ImageSource = bit
+            Try
+                Dim uri As Uri = New Uri(url, UriKind.RelativeOrAbsolute)
+                Dim info As StreamResourceInfo = Application.GetResourceStream(uri)
+                Dim bit As BitmapFrame = BitmapFrame.Create(info.Stream)
+
+                imagen.ImageSource = bit
+                imagenDatos = System.Drawing.Image.FromStream(info.Stream)
+            Catch ex As Exception
+                imagen.ImageSource = New BitmapImage(New Uri(url))
+                imagenDatos = System.Drawing.Image.FromFile(url)
+            End Try
+
             button.Background = imagen
             button.Content = Nothing
 
-            Dim imagenDatos As System.Drawing.Image = System.Drawing.Image.FromStream(info.Stream)
             Dim tip As New ToolTip
             tip.Visibility = Visibility.Collapsed
             tip.Content = imagenDatos.Width.ToString + "x" + imagenDatos.Height.ToString

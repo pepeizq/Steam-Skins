@@ -225,6 +225,9 @@
   <data name="colorRoyalBlue" xml:space="preserve">
     <value>Royal Blue</value>
   </data>
+  <data name="colors" xml:space="preserve">
+    <value>Colors</value>
+  </data>
   <data name="colorSea" xml:space="preserve">
     <value>Sea</value>
   </data>
@@ -257,6 +260,9 @@
   </data>
   <data name="colorYoutubered" xml:space="preserve">
     <value>Youtube Red</value>
+  </data>
+  <data name="contact" xml:space="preserve">
+    <value>Contact</value>
   </data>
   <data name="customBackground" xml:space="preserve">
     <value>Backgrounds:</value>
@@ -297,6 +303,12 @@
   <data name="customTransparentUninstalled" xml:space="preserve">
     <value>Transparent Uninstalled:</value>
   </data>
+  <data name="data" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="editor" xml:space="preserve">
+    <value>Editor</value>
+  </data>
   <data name="editorAvalaibleSkins" xml:space="preserve">
     <value>Avalaible Skins:</value>
   </data>
@@ -326,6 +338,9 @@
   </data>
   <data name="extractingFiles" xml:space="preserve">
     <value>Extracting files</value>
+  </data>
+  <data name="font" xml:space="preserve">
+    <value>Font</value>
   </data>
   <data name="fontsFile" xml:space="preserve">
     <value>Instructions to install fonts.txt</value>
@@ -357,20 +372,14 @@
   <data name="load" xml:space="preserve">
     <value>Load</value>
   </data>
-  <data name="menuContact" xml:space="preserve">
-    <value>Contact</value>
-  </data>
-  <data name="menuEditor" xml:space="preserve">
-    <value>Editor</value>
-  </data>
-  <data name="menuOptions" xml:space="preserve">
-    <value>Options</value>
-  </data>
   <data name="movingFiles" xml:space="preserve">
     <value>Moving files</value>
   </data>
   <data name="no" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="options" xml:space="preserve">
+    <value>Options</value>
   </data>
   <data name="positionBottomLeft" xml:space="preserve">
     <value>Bottom Left</value>
@@ -399,6 +408,9 @@
   <data name="skinInstalled" xml:space="preserve">
     <value>Skin installed</value>
   </data>
+  <data name="skins" xml:space="preserve">
+    <value>Skins</value>
+  </data>
   <data name="startingSteam" xml:space="preserve">
     <value>Starting Steam</value>
   </data>
@@ -406,7 +418,7 @@
     <value>You have installed the last version</value>
   </data>
   <data name="tabControlAutorCreado" xml:space="preserve">
-    <value>Created by:</value>
+    <value>Created by</value>
   </data>
   <data name="tabControlAutorDonar" xml:space="preserve">
     <value>Donate:</value>
@@ -437,5 +449,14 @@
   </data>
   <data name="yes" xml:space="preserve">
     <value>Yes</value>
+  </data>
+  <data name="textures" xml:space="preserve">
+    <value>Textures</value>
+  </data>
+  <data name="editorGenerateConfig" xml:space="preserve">
+    <value>Skin Generated</value>
+  </data>
+  <data name="editorGeneratingConfig" xml:space="preserve">
+    <value>Generating Skin</value>
   </data>
 </root>

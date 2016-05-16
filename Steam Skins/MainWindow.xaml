@@ -1,387 +1,1071 @@
-﻿<metro:Window x:Name="Main" x:Class="MainWindow"
+﻿<Controls:MetroWindow x:Name="Main" x:Class="MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:Steam_Skins"
-              
-        xmlns:metro="http://schemas.codeplex.com/elysium"
-        xmlns:params="http://schemas.codeplex.com/elysium/params"   
-              
-        xmlns:tb="http://www.hardcodet.net/taskbar"
-              
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"      
+        xmlns:tb="http://www.hardcodet.net/taskbar"              
         xmlns:views="clr-namespace:ColorPickerLib.Controls;assembly=ColorPickerLib"
-              
-        params:Manager.Theme="Light" 
-        params:Manager.AccentBrush="{x:Static metro:AccentBrushes.Viridian}"
-        params:Manager.ContrastBrush="White"
-        Background="{DynamicResource BackgroundBrush}"
-              
-        Title="Steam Skins" Height="500" Width="700" WindowState="Maximized" WindowStartupLocation="CenterScreen">
+        
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        
+        Title="Steam Skins" Height="500" Width="700" WindowState="Maximized" WindowStartupLocation="CenterScreen" Icon="Imagenes/Icono/steam-256.ico" ShowIconOnTitleBar="False" TitleCaps="False">
 
-    <metro:Window.Icon>
-        <DrawingImage>
-            <DrawingImage.Drawing>
-                <ImageDrawing ImageSource="Imagenes/Icono/steam-256.ico" Rect="0,0,24,24" />
-            </DrawingImage.Drawing>
-        </DrawingImage>
-    </metro:Window.Icon>
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button x:Name="menuContact"/>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
 
-    <metro:Window.TitleBar>
-        <Grid>
-            <Menu x:Name="menuSuperior">
-                <MenuItem x:Name="menuEditor" Visibility="Collapsed" />
-                <MenuItem x:Name="menuOptions" />
-                <MenuItem x:Name="menuContact" />
-            </Menu>
-        </Grid>
-    </metro:Window.TitleBar>
+    <Controls:MetroWindow.Resources>
+        <Style BasedOn="{StaticResource MetroTabItem}" TargetType="{x:Type TabItem}">
+            <Setter Property="Controls:ControlsHelper.HeaderFontSize" Value="15" />
+            <Setter Property="Controls:ControlsHelper.HeaderFontWeight" Value="SemiBold"/>
+        </Style>
+    </Controls:MetroWindow.Resources>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <dragablz:TabablzControl x:Name="tabMaestro" FontSize="15">
+            <dragablz:TabablzControl.InterTabController>
+                <dragablz:InterTabController />
+            </dragablz:TabablzControl.InterTabController>
 
-        <Grid x:Name="gridBarraSuperior" Grid.Row="0">
-            <Grid.Background>
+            <dragablz:TabablzControl.BorderBrush>
                 <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
                     <GradientStop Color="#FF009290" Offset="0"/>
                     <GradientStop Color="#FF00ABA9" Offset="0.567"/>
                 </LinearGradientBrush>
-            </Grid.Background>
+            </dragablz:TabablzControl.BorderBrush>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-
-            <Grid Margin="10,0,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <Label x:Name="labelTopBarComboBox" FontSize="14" Grid.Column="0" Foreground="White" FontWeight="SemiBold" VerticalContentAlignment="Center"/>
-                <ComboBox x:Name="comboBoxSkins" Width="150" Margin="10" Grid.Column="1">
-                    <ComboBoxItem Content="Default" FontSize="14" Margin="5,0" />
-                    <Separator />
-                    <ComboBoxItem Content="Air" FontSize="14" Margin="5,0" />
-                    <ComboBoxItem Content="Air Classic" FontSize="14" Margin="5,0" />
-                    <ComboBoxItem Content="Black Rock Shooter" FontSize="14" Margin="5,0" />
-                    <ComboBoxItem Content="Blue Pulse" FontSize="14" Margin="5,0" />
-                    <ComboBoxItem Content="Compact" FontSize="14" Margin="5,0" />
-                    <ComboBoxItem Content="Invert" FontSize="14" Margin="5,0" />
-                    <ComboBoxItem Content="Metro" FontSize="14" Margin="5,0" />
-                    <ComboBoxItem Content="Minimal" FontSize="14" Margin="5,0" />
-                    <ComboBoxItem Content="PixelVision²" FontSize="14" Margin="5,0" />
-                    <ComboBoxItem Content="Plexed" FontSize="14" Margin="5,0" />
-                    <ComboBoxItem Content="Pressure²" FontSize="14" Margin="5,0" />
-                    <ComboBoxItem Content="Threshold" FontSize="14" Margin="5,0" />
-                </ComboBox>
-            </Grid>
-
-            <Grid Grid.Column="1" Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <Border Grid.Column="0" Margin="0,0,20,0" Padding="5">
-                    <Grid>
+            <TabItem x:Name="tabItemApariencias">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid x:Name="gridBarraSuperior" Grid.Row="0" Margin="15,15,15,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <Label x:Name="labelTopBarSteamFolder" FontSize="14" Grid.Column="0" Foreground="White" FontWeight="SemiBold"/>
-                        <Label x:Name="labelRutaSteam" FontSize="14" Grid.Column="1" Foreground="White" FontWeight="SemiBold"/>
+                        <Grid Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label x:Name="labelTopBarComboBox" Grid.Column="0" VerticalContentAlignment="Center"/>
+                            <ComboBox x:Name="comboBoxSkins" Width="150" Margin="10" Grid.Column="1">
+                                <ComboBoxItem Content="Default" Margin="5,0" />
+                                <Separator />
+                                <ComboBoxItem Content="Air" Margin="5,0" />
+                                <ComboBoxItem Content="Air Classic" Margin="5,0" />
+                                <ComboBoxItem Content="Black Rock Shooter" Margin="5,0" />
+                                <ComboBoxItem Content="Blue Pulse" Margin="5,0" />
+                                <ComboBoxItem Content="Compact" Margin="5,0" />
+                                <ComboBoxItem Content="Invert" Margin="5,0" />
+                                <ComboBoxItem Content="Metro" Margin="5,0" />
+                                <ComboBoxItem Content="Minimal" Margin="5,0" />
+                                <ComboBoxItem Content="PixelVision²" Margin="5,0" />
+                                <ComboBoxItem Content="Plexed" Margin="5,0" />
+                                <ComboBoxItem Content="Pressure²" Margin="5,0" />
+                                <ComboBoxItem Content="Threshold" Margin="5,0" />
+                            </ComboBox>
+                        </Grid>
+
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0" Margin="0,0,20,0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label x:Name="labelTopBarSteamFolder" Grid.Column="0" VerticalContentAlignment="Center"/>
+                                    <Label x:Name="labelRutaSteam" Grid.Column="1" VerticalContentAlignment="Center"/>
+                                </Grid>
+                            </Grid>
+
+                            <Grid Grid.Column="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label x:Name="labelTopBarSkinUse" Grid.Column="0" VerticalContentAlignment="Center"/>
+                                    <Label x:Name="labelSkinInstalada" Grid.Column="1" VerticalContentAlignment="Center"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
                     </Grid>
-                </Border>
 
-                <Border Grid.Column="1" Padding="5">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+                    <Grid x:Name="gridPrincipal" Grid.Row="1" Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                        <Label x:Name="labelTopBarSkinUse" FontSize="14" Grid.Column="0" Foreground="White" FontWeight="SemiBold"/>
-                        <Label x:Name="labelSkinInstalada" FontSize="14" Grid.Column="1" Foreground="White" FontWeight="SemiBold" />
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <GroupBox Grid.Column="0">
+                                <GroupBox.Header>
+                                    <Label x:Name="textBoxSkinSeleccionada" FontSize="16" Foreground="White"/>
+                                </GroupBox.Header>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button x:Name="skinInstallButton" Grid.Column="0" Margin="5" VerticalAlignment="Center" />
+
+                                    <Grid x:Name="gridProgreso" Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Controls:MetroProgressBar x:Name="progressBarProgreso" Grid.Column="0" Width="200" Visibility="Collapsed" Height="34" Margin="0,0,10,0"/>
+                                        <Label x:Name="labelProgreso" Grid.Column="1" VerticalContentAlignment="Center"/>
+                                    </Grid>
+                                </Grid>
+                            </GroupBox>
+
+                            <GroupBox x:Name="gridAutor" Grid.Column="1">
+                                <GroupBox.Header>
+                                    <Label x:Name="tabControlAutorLabel" FontSize="16" Foreground="White"/>
+                                </GroupBox.Header>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0" HorizontalAlignment="Center" Margin="5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label x:Name="tabControlAutorCreado" Grid.Column="0" Margin="0,0,5,0" VerticalContentAlignment="Center" Padding="5,5,0,5" />
+                                        <Label x:Name="labelAutor" Grid.Column="1" VerticalContentAlignment="Center" Padding="0,5,5,5" />
+                                    </Grid>
+
+                                    <Grid Grid.Row="1" HorizontalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Button x:Name="skinWebButton" Grid.Column="0" Margin="5" Height="34"/>
+
+                                        <Grid x:Name="gridDonar" Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Button x:Name="skinDonarPaypalButton" Grid.Column="0" Margin="5" Height="34">
+                                                <Button.Content>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <Image Grid.Column="0" Source="Imagenes/Icono/paypal_32.png" Height="20" />
+                                                        <Label Grid.Column="1" Content="Paypal" Foreground="White" Padding="5,0"/>
+                                                    </Grid>
+                                                </Button.Content>
+                                            </Button>
+                                            <Button x:Name="skinDonarPatreonButton" Grid.Column="1" Margin="5" Height="34">
+                                                <Button.Content>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <Image Grid.Column="0" Source="Imagenes/Icono/patreon_32.png" Height="20" />
+                                                        <Label Grid.Column="1" Content="Patreon" Foreground="White" Padding="5,0"/>
+                                                    </Grid>
+                                                </Button.Content>
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                 
+                        <Grid Grid.Row="1" Margin="5,10,5,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <GroupBox x:Name="gridSkinOpciones" Grid.Column="0" Visibility="Collapsed" Margin="0,0,10,0">
+                                <GroupBox.Header>
+                                    <Label x:Name="tabControlCustomizationLabel" FontSize="16" Foreground="White"/>
+                                </GroupBox.Header>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid x:Name="gridSkinOpcion1" Grid.Row="0" Margin="7,10,10,5" Visibility="Collapsed">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label x:Name="labelSkinOpcion1" Grid.Column="0" VerticalContentAlignment="Center" Margin="0,0,5,0" HorizontalContentAlignment="Right"/>
+                                        <ComboBox x:Name="comboBoxSkinOpcion1" Grid.Column="1" Height="34" Width="150"/>
+                                    </Grid>
+
+                                    <Grid x:Name="gridSkinOpcion2" Grid.Row="1" Margin="7,5,10,5" Visibility="Collapsed">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label x:Name="labelSkinOpcion2" Grid.Column="0" VerticalContentAlignment="Center" Margin="0,0,5,0" HorizontalContentAlignment="Right"/>
+                                        <ComboBox x:Name="comboBoxSkinOpcion2" Grid.Column="1" Height="34" Width="150"/>
+                                    </Grid>
+
+                                    <Grid x:Name="gridSkinOpcion3" Grid.Row="2" Margin="7,5,10,5" Visibility="Collapsed">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label x:Name="labelSkinOpcion3" Grid.Column="0" VerticalContentAlignment="Center" Margin="0,0,5,0" HorizontalContentAlignment="Right"/>
+                                        <ComboBox x:Name="comboBoxSkinOpcion3" Grid.Column="1" Height="34" Width="150"/>
+                                    </Grid>
+
+                                    <Grid x:Name="gridSkinOpcion4" Grid.Row="3" Margin="7,5,10,5" Visibility="Collapsed">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label x:Name="labelSkinOpcion4" Grid.Column="0" VerticalContentAlignment="Center" Margin="0,0,5,0" HorizontalContentAlignment="Right"/>
+                                        <ComboBox x:Name="comboBoxSkinOpcion4" Grid.Column="1" Height="34" Width="150"/>
+                                    </Grid>
+
+                                    <Grid x:Name="gridSkinOpcion5" Grid.Row="4" Margin="7,5,10,5" Visibility="Collapsed">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label x:Name="labelSkinOpcion5" Grid.Column="0" VerticalContentAlignment="Center" Margin="0,0,5,0" HorizontalContentAlignment="Right"/>
+                                        <ComboBox x:Name="comboBoxSkinOpcion5" Grid.Column="1" Height="34" Width="150"/>
+                                    </Grid>
+
+                                    <Grid x:Name="gridSkinOpcion6" Grid.Row="5" Margin="7,5,10,5" Visibility="Collapsed">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label x:Name="labelSkinOpcion6" Grid.Column="0" VerticalContentAlignment="Center" Margin="0,0,5,0" HorizontalContentAlignment="Right"/>
+                                        <ComboBox x:Name="comboBoxSkinOpcion6" Grid.Column="1" Height="34" Width="150"/>
+                                    </Grid>
+
+                                    <Grid x:Name="gridSkinOpcion7" Grid.Row="6" Margin="7,5,10,5" Visibility="Collapsed">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label x:Name="labelSkinOpcion7" Grid.Column="0" VerticalContentAlignment="Center" Margin="0,0,5,0" HorizontalContentAlignment="Right"/>
+                                        <ComboBox x:Name="comboBoxSkinOpcion7" Grid.Column="1" Height="34" Width="150"/>
+                                    </Grid>
+
+                                    <Grid x:Name="gridSkinOpcion8" Grid.Row="7" Margin="7,5,10,5" Visibility="Collapsed">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label x:Name="labelSkinOpcion8" Grid.Column="0" VerticalContentAlignment="Center" Margin="0,0,5,0" HorizontalContentAlignment="Right"/>
+                                        <ComboBox x:Name="comboBoxSkinOpcion8" Grid.Column="1" Height="34" Width="150"/>
+                                    </Grid>
+
+                                    <Grid x:Name="gridSkinOpcion9" Grid.Row="8" Margin="7,5,10,5" Visibility="Collapsed">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label x:Name="labelSkinOpcion9" Grid.Column="0" VerticalContentAlignment="Center" Margin="0,0,5,0" HorizontalContentAlignment="Right"/>
+                                        <ComboBox x:Name="comboBoxSkinOpcion9" Grid.Column="1" Height="34" Width="150"/>
+                                    </Grid>
+                                </Grid>
+                            </GroupBox>
+
+                            <GroupBox Grid.Column="1" Margin="0">
+                                <GroupBox.ToolTip>
+                                    <Grid>
+                                        <Label x:Name="tabControlScreenshotsTooltip" Foreground="White"/>
+                                    </Grid>
+                                </GroupBox.ToolTip>
+                                <GroupBox.Header>
+                                    <Label x:Name="tabControlScreenshotsLabel" FontSize="16" Foreground="White"/>
+                                </GroupBox.Header>
+
+                                <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition x:Name="columnImage1" Width="*"/>
+                                            <ColumnDefinition x:Name="columnImage2" Width="*"/>
+                                            <ColumnDefinition x:Name="columnImage3" Width="*"/>
+                                            <ColumnDefinition x:Name="columnImage4" Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Button x:Name="buttonImagePreview1" Grid.Column="0" Margin="5" Padding="0" Background="White" MinWidth="30" Height="Auto">
+                                            <Button.Content>
+                                                <ImageBrush x:Name="imagePreview1" Stretch="UniformToFill" />
+                                            </Button.Content>
+                                        </Button>
+
+                                        <Button x:Name="buttonImagePreview2" Grid.Column="1" Margin="5" Padding="0" Background="White" MinWidth="30" Height="Auto">
+                                            <Button.Content>
+                                                <ImageBrush x:Name="imagePreview2" Stretch="UniformToFill" />
+                                            </Button.Content>
+                                        </Button>
+
+                                        <Button x:Name="buttonImagePreview3" Grid.Column="2" Margin="5" Padding="0" Background="White" MinWidth="30" Height="Auto">
+                                            <Button.Content>
+                                                <ImageBrush x:Name="imagePreview3" Stretch="UniformToFill" />
+                                            </Button.Content>
+                                        </Button>
+
+                                        <Button x:Name="buttonImagePreview4" Grid.Column="3" Margin="5" Padding="0" Background="White" MinWidth="30" Height="Auto">
+                                            <Button.Content>
+                                                <ImageBrush x:Name="imagePreview4" Stretch="UniformToFill" />
+                                            </Button.Content>
+                                        </Button>
+                                    </Grid>
+                                </ScrollViewer>
+                            </GroupBox>
+                        </Grid>
                     </Grid>
-                </Border>
-            </Grid>
-        </Grid>
-
-        <Grid x:Name="gridPrincipal" Grid.Row="1" Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <Grid Grid.Row="0" Margin="0,0,0,10" >
-                <TextBox x:Name="textBoxSkinSeleccionada" FontSize="20" BorderThickness="0" IsReadOnly="True" Margin="5,0,0,0" />
-            </Grid>
-
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <Button x:Name="skinInstallButton" Grid.Column="0" Margin="5" FontSize="14" />
-
-                <Grid x:Name="gridProgreso" Grid.Column="1" Margin="10,0,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <ProgressBar x:Name="progressBarProgreso" Grid.Column="0" Width="200" Visibility="Collapsed" Height="34" Margin="0,0,10,0"/>
-                    <Label x:Name="labelProgreso" FontSize="14" Grid.Column="1" VerticalContentAlignment="Center"/>
                 </Grid>
-            </Grid>
+            </TabItem>
+            <TabItem x:Name="tabItemEditor">
+                <Grid x:Name="gridPrincipalEditor">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-            <Grid Grid.Row="2" Margin="5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0" Margin="15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0">
+                        <Button x:Name="buttonEditorCrear" Grid.Column="0" IsEnabled="False"/>
+                        <Label x:Name="labelEditorProgreso" Grid.Column="1" Margin="10,0,0,0" />
+
+                        <Grid x:Name="gridEditorSkinsDisponibles" Grid.Column="2" HorizontalAlignment="Right">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label x:Name="labelEditorSkinsDisponibles" Grid.Column="0" Margin="20,0,0,0" VerticalContentAlignment="Center"/>
+                            <ComboBox x:Name="comboBoxEditorSkinsDisponibles" Grid.Column="1" Margin="5,0"/>
+                            <Button x:Name="buttonEditorSkinsDisponibles" Grid.Column="2" Margin="5,0,0,0"/>
+                        </Grid>
+                    </Grid>
+
+                    <GroupBox Grid.Row="1" Margin="15,5">
+                        <GroupBox.Header>
+                            <Label x:Name="groupBoxEditorDatos" FontSize="16" Foreground="White"/>
+                        </GroupBox.Header>
+
+                        <Grid x:Name="gridEditorDatos" Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid x:Name="gridEditorTitulo" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label x:Name="labelEditorTitulo" Grid.Column="0"/>
+                                <TextBox x:Name="textBoxEditorTitulo" Grid.Column="1" Margin="5,0,10,0"/>
+                            </Grid>
+
+                            <Grid x:Name="gridEditorAutor" Grid.Column="1" Margin="20,0,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label x:Name="labelEditorAutor" Grid.Column="0"/>
+                                <TextBox x:Name="textBoxEditorAutor" Grid.Column="1" Margin="5,0,10,0"/>
+                            </Grid>
+
+                            <Grid x:Name="gridEditorWeb" Grid.Column="2" Margin="20,0,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label x:Name="labelEditorWeb" Grid.Column="0"/>
+                                <TextBox x:Name="textBoxEditorWeb" Grid.Column="1" Margin="5,0,10,0"/>
+                            </Grid>
+
+                            <Grid x:Name="gridEditorFuente" Grid.Column="3" Margin="20,0,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <Label x:Name="labelEditorFuentes" Grid.Column="0"/>
+                                <ComboBox x:Name="comboBoxEditorFuentes" Grid.Column="1" Margin="5,0" SelectedIndex="0" HorizontalAlignment="Left" >
+                                    <ComboBoxItem Content="Arial" Margin="5,0"/>
+                                    <ComboBoxItem Content="Calibri" Margin="5,0"/>
+                                    <ComboBoxItem Content="Candara" Margin="5,0"/>
+                                    <ComboBoxItem Content="Comic Sans MS" Margin="5,0"/>
+                                    <ComboBoxItem Content="Georgia" Margin="5,0"/>
+                                    <ComboBoxItem Content="Tahoma" Margin="5,0"/>
+                                    <ComboBoxItem Content="Times New Roman" Margin="5,0"/>
+                                    <ComboBoxItem Content="Verdana" Margin="5,0"/>
+                                </ComboBox>
+                            </Grid>
+                        </Grid>
+                    </GroupBox>
+
+                    <ScrollViewer Grid.Row="2" Margin="10,5" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <GroupBox x:Name="groupBoxEditorColores" Grid.Column="0" IsEnabled="False">
+                                <GroupBox.Header>
+                                    <Label x:Name="groupBoxEditorColor" FontSize="16" Foreground="White"/>
+                                </GroupBox.Header>
+
+                                <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">
+                                    <TabControl HorizontalAlignment="Left" Margin="5">
+                                        <TabItem Header="Button">
+                                            <Grid>
+                                                <TabControl x:Name="tabControlEditorColoresButton" TabStripPlacement="Left">
+                                                    <TabItem Header="bordercolor">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonbordercolor" Margin="5,0" Background="White" SelectedColor="#FF666666"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="darkcorner">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtondarkcorner" Margin="5,0" Background="White" SelectedColor="#FF494949"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="buttontext">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtontext" Margin="5,0" Background="White" SelectedColor="#FFCFCFCF"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="buttontextactive">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtontextactive" Margin="5,0" Background="White" SelectedColor="#FFCFCFCF"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonFace">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFace" Margin="5,0" Background="White" SelectedColor="#FF666666" A="200"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonFace2">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFace2" Margin="5,0" Background="White" SelectedColor="#FF505050"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonFace3">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFace3" Margin="5,0" Background="White" SelectedColor="#FF5C5C5C"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonFaceDisabled">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFaceDisabled" Margin="5,0" Background="White" SelectedColor="#FF666666" A="15"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonFaceHover">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFaceHover" Margin="5,0" Background="White" SelectedColor="#FF636363" A="240"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonFaceActive">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFaceActive" Margin="5,0" Background="White" SelectedColor="#FF666666" A="240"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonFaceFocus">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFaceFocus" Margin="5,0" Background="White" SelectedColor="DimGray" A="240"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonFaceActiveFocus">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFaceActiveFocus" Margin="5,0" Background="White" SelectedColor="DimGray"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="BlueBorder">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBlueBorder" Margin="5,0" Background="White" SelectedColor="#FF212121"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonBorder">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorder" Margin="5,0" Background="White" SelectedColor="#FF595959"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonBorderSubtle">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderSubtle" Margin="5,0" Background="White" SelectedColor="#FF4F4F4F"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonBorderPage">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderPage" Margin="5,0" Background="White" SelectedColor="#FF7C7C7C"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonBorderDisabled">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderDisabled" Margin="5,0" Background="White" SelectedColor="#FF4B4B4B"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonBorderDisabled2">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderDisabled2" Margin="5,0" Background="White" SelectedColor="#FF414141"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonBorderActive">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderActive" Margin="5,0" Background="White" SelectedColor="#FF7D7D7D"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonBorderFocus">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderFocus" Margin="5,0" Background="White" SelectedColor="#FF898989"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonBorderFocusSubtle">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderFocusSubtle" Margin="5,0" Background="White" SelectedColor="#FF7A7A7A"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                </TabControl>
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem Header="Text">
+                                            <Grid>
+                                                <TabControl x:Name="tabControlEditorColoresTexto" TabStripPlacement="Left">
+                                                    <TabItem Header="Text">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorText" Margin="5,0" Background="White" SelectedColor="#FFCFCFCF"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Text2">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorText2" Margin="5,0" Background="White" SelectedColor="#FFB4B4B4"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TextDisabled">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextDisabled" Margin="5,0" Background="White" SelectedColor="#FF636363"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TextHover">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextHover" Margin="5,0" Background="White" SelectedColor="#FFE2E2E2"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TextSelected">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextSelected" Margin="5,0" Background="White" SelectedColor="#FFEFEFEF"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TextEntrySelected">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextEntrySelected" Margin="5,0" Background="White" SelectedColor="#FFEDEDED" A="235"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TextSelectedBG">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextSelectedBG" Margin="5,0" Background="White" SelectedColor="#FF255994"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TextGlowHover">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextGlowHover" Margin="5,0" Background="White" SelectedColor="#FF7C7C7C"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TextGlowSelected">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextGlowSelected" Margin="5,0" Background="White" SelectedColor="DarkGray"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TextGlowHoverSm">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextGlowHoverSm" Margin="5,0" Background="White" SelectedColor="#FF7B7B7B"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TextGlowSelectedSm">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextGlowSelectedSm" Margin="5,0" Background="White" SelectedColor="#FF8E8E8E"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="redborder">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextredborder" Margin="5,0" Background="White" SelectedColor="#FFA94847"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                </TabControl>
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem Header="Label">
+                                            <Grid>
+                                                <TabControl x:Name="tabControlEditorColoresLabel" TabStripPlacement="Left">
+                                                    <TabItem Header="NavLabel">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorLabelNav" Margin="5,0" Background="White" SelectedColor="#FF999999"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Label">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorLabel" Margin="5,0" Background="White" SelectedColor="#FFA8A8A8"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Label2">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorLabel2" Margin="5,0" Background="White" SelectedColor="#FF6F6F6F"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="LabelDisabled">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorLabelDisabled" Margin="5,0" Background="White" SelectedColor="#FF737373"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="LabelFocus">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorLabelFocus" Margin="5,0" Background="White" SelectedColor="#FFC4C4C4"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                </TabControl>
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem Header="Scroll">
+                                            <Grid>
+                                                <TabControl x:Name="tabControlEditorColoresScroll" TabStripPlacement="Left">
+                                                    <TabItem Header="SuperNav">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorScrollSuperNav" Margin="5,0" Background="White" SelectedColor="White"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="SuperNavHover">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorScrollSuperNavHover" Margin="5,0" Background="White" SelectedColor="White"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ScrollGlyph">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorScrollGlyph" Margin="5,0" Background="White" SelectedColor="#FFC6C6C6"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ScrollGlyphDisabled">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorScrollGlyphDisabled" Margin="5,0" Background="White" SelectedColor="#FF4A4A4A"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ScrollGlyphFocus">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorScrollGlyphFocus" Margin="5,0" Background="White" SelectedColor="#FFF2F2F2"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ScrollBG">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorScrollBG" Margin="5,0" Background="White" SelectedColor="#FF363636"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                </TabControl>
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem Header="Header">
+                                            <Grid>
+                                                <TabControl x:Name="tabControlEditorColoresHeader" TabStripPlacement="Left">
+                                                    <TabItem Header="HeaderClient">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorHeaderClient" Margin="5,0" Background="White" SelectedColor="#FF353535"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="HeaderDialog">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorHeaderDialog" Margin="5,0" Background="White" SelectedColor="#FF353535"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TitleBar">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorHeaderTitleBar" Margin="5,0" Background="White" SelectedColor="#FF1A1A1A" A="80" />
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TitleBarFocus">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorHeaderTitleBarFocus" Margin="5,0" Background="White" SelectedColor="#FF0E1F38" A="80" />
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="MenuBG">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorHeaderMenuBG" Margin="5,0" Background="White" SelectedColor="#FF444444"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                </TabControl>
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem Header="Focus">
+                                            <Grid>
+                                                <TabControl x:Name="tabControlEditorColoresFocus" TabStripPlacement="Left">
+                                                    <TabItem Header="Focus0">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocus0" Margin="5,0" Background="White" SelectedColor="#FF17334D"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Focus">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocus" Margin="5,0" Background="White" SelectedColor="#FF193754"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Focus2">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocus2" Margin="5,0" Background="White" SelectedColor="#FF15466B"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Focus3">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocus3" Margin="5,0" Background="White" SelectedColor="#FF525252"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Focus4">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocus4" Margin="5,0" Background="White" SelectedColor="#FF439EBF"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="FocusGrid">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusGrid" Margin="5,0" Background="White" SelectedColor="#FF5575A1" A="240"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Highlight">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight" Margin="5,0" Background="White" SelectedColor="#FF103552" A="120"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Highlight1">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight1" Margin="5,0" Background="White" SelectedColor="#FF5CC1E5"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Highlight2">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight2" Margin="5,0" Background="White" SelectedColor="#FF4C9FBF"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Highlight3">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight3" Margin="5,0" Background="White" SelectedColor="#FFAD4547"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Highlight5">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight5" Margin="5,0" Background="White" SelectedColor="#FF183552"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Highlight5a">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight5a" Margin="5,0" Background="White" SelectedColor="#FF1E4266"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Highlight5b">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight5b" Margin="5,0" Background="White" SelectedColor="#FF112A56"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                </TabControl>
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem Header="Background">
+                                            <Grid>
+                                                <TabControl x:Name="tabControlEditorColoresBackground" TabStripPlacement="Left">
+                                                    <TabItem Header="BackgroundStartSubtle">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundStartSubtle" Margin="5,0" Background="White" SelectedColor="#FF141414" A="155"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="BackgroundStartSubtlest">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundStartSubtlest" Margin="5,0" Background="White" SelectedColor="#FF161616" A="100"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="BackgroundStart">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundStart" Margin="5,0" Background="White" SelectedColor="#FF161616" A="180"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="BackgroundStartOpaque">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundStartOpaque" Margin="5,0" Background="White" SelectedColor="#FF232323"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ClientBG">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundClientBG" Margin="5,0" Background="White" SelectedColor="#FF1E1E1E"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ClientBGTop">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundClientBGTop" Margin="5,0" Background="White" SelectedColor="#FF19202E"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ClientGrouper">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundClientGrouper" Margin="5,0" Background="White" SelectedColor="#FF292A2E"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="DialogBG">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundDialogBG" Margin="5,0" Background="White" SelectedColor="#FF262626"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="DialogBGFade1">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundDialogBGFade1" Margin="5,0" Background="White" SelectedColor="#FF383838"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="DialogBGFade2">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundDialogBGFade2" Margin="5,0" Background="White" SelectedColor="#FF383838" A="0"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="DarkClientBG">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundDarkClientBG" Margin="5,0" Background="White" SelectedColor="#FF232323"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="DarkDialogBG">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundDarkDialogBG" Margin="5,0" Background="White" SelectedColor="#FF262626"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="DarkClientBGTransparent">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundDarkClientBGTransparent" Margin="5,0" Background="White" SelectedColor="#FF232323" A="19"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="DarkDialogBGTransparent">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundDarkDialogBGTransparent" Margin="5,0" Background="White" SelectedColor="#FF373737" A="170"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="GameDetailsBlueTransparent">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundGameDetailsBlueTransparent" Margin="5,0" Background="White" SelectedColor="#3C4794B3" A="60"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="GameDetailsGreenTransparent">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundGameDetailsGreenTransparent" Margin="5,0" Background="White" SelectedColor="#3C4794B3" A="160"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="GameDetailsRedTransparent">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundGameDetailsRedTransparent" Margin="5,0" Background="White" SelectedColor="#3C4794B3" A="160"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="GameDetailsBlue">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundGameDetailsBlue" Margin="5,0" Background="White" SelectedColor="#3C4794B3"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="GameDetailsGreen">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundGameDetailsGreen" Margin="5,0" Background="White" SelectedColor="#3C4794B3"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="GameDetailsRed">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundGameDetailsRed" Margin="5,0" Background="White" SelectedColor="#3C4794B3"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="PropertySheetBG">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundPropertySheetBG" Margin="5,0" Background="White" SelectedColor="#FF3A3A3A"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="InteriorColor">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundInteriorColor" Margin="5,0" Background="White" SelectedColor="#FF343434"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="DialogBorder">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundDialogBorder" Margin="5,0" Background="White" SelectedColor="#FF757575"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="FillBG1">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundFillBG1" Margin="5,0" Background="White" SelectedColor="#FF3E3E3E"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="FillBG2">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundFillBG2" Margin="5,0" Background="White" SelectedColor="#FF454545"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="MenuBG1">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundMenuBG1" Margin="5,0" Background="White" SelectedColor="#FF4B4B4B"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="MenuBG2">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorBackgroundMenuBG2" Margin="5,0" Background="White" SelectedColor="#FF363636"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                </TabControl>
+                                            </Grid>
+                                        </TabItem>
+                                    </TabControl>
+                                </ScrollViewer>
+                            </GroupBox>
+
+                            <GroupBox x:Name="groupBoxEditorTexturas" Grid.Column="1" IsEnabled="False">
+                                <GroupBox.Header>
+                                    <Label x:Name="groupBoxEditorTextura" FontSize="16" Foreground="White"/>
+                                </GroupBox.Header>
+
+                                <TabControl HorizontalAlignment="Left" Margin="5">
+                                    <TabItem Header="graphics">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.Column="0">
+                                                <TabControl x:Name="tabControlEditorTexturasGraphics" TabStripPlacement="Left" />
+                                            </ScrollViewer>
+
+                                            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1" Margin="5,0,0,0">
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <Label x:Name="labelEditorTexturasGraphics" Grid.Row="0"/>
+                                                    <Image x:Name="imageEditorTexturasGraphics" Grid.Row="1"/>
+                                                </Grid>
+                                            </ScrollViewer>                                            
+                                        </Grid>
+                                    </TabItem>
+                                    <TabItem Header="resource">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.Column="0">
+                                                <TabControl x:Name="tabControlEditorTexturasResource" TabStripPlacement="Left" />
+                                            </ScrollViewer>
+
+                                            <Grid Grid.Column="1" Margin="5,0,0,0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <Label x:Name="labelEditorTexturasResource" Grid.Row="0"/>
+                                                <Image x:Name="imageEditorTexturasResource" Grid.Row="1"/>
+                                            </Grid>
+                                        </Grid>
+                                    </TabItem>
+                                </TabControl>
+                            </GroupBox>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tabItemOpciones">
+                <Grid Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TabControl x:Name="gridSkinOpciones" Grid.Row="0" Visibility="Collapsed" Margin="0,20,40,0">
-                        <TabItem>
-                            <TabItem.Header>
-                                <Label x:Name="tabControlCustomizationLabel" FontSize="16"/>
-                            </TabItem.Header>
+                    <Grid Grid.Row="0" Margin="0,5,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
+                        <Label x:Name="gridOptionsLanguageLabel" Grid.Column="0" Margin="0,0,10,0"/>
+                        <ComboBox x:Name="comboBoxOpcionesIdioma" Grid.Column="1">
+                            <ComboBoxItem Content="English" Margin="5,0" />
+                            <ComboBoxItem Content="Español" Margin="5,0" />
+                        </ComboBox>
+                        <Label x:Name="gridOptionsLanguageLabelAviso" Grid.Column="2" Margin="10,0,0,0"/>
+                    </Grid>
 
-                                <Grid x:Name="gridSkinOpcion1" Grid.Row="0" Margin="7,10,10,5" Visibility="Collapsed">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label x:Name="labelSkinOpcion1" Grid.Column="0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
-                                    <ComboBox x:Name="comboBoxSkinOpcion1" Grid.Column="1" Height="34"/>
-                                </Grid>
-
-                                <Grid x:Name="gridSkinOpcion2" Grid.Row="1" Margin="7,5,10,5" Visibility="Collapsed">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label x:Name="labelSkinOpcion2" Grid.Column="0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
-                                    <ComboBox x:Name="comboBoxSkinOpcion2" Grid.Column="1" Height="34"/>
-                                </Grid>
-
-                                <Grid x:Name="gridSkinOpcion3" Grid.Row="2" Margin="7,5,10,5" Visibility="Collapsed">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label x:Name="labelSkinOpcion3" Grid.Column="0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
-                                    <ComboBox x:Name="comboBoxSkinOpcion3" Grid.Column="1" Height="34"/>
-                                </Grid>
-
-                                <Grid x:Name="gridSkinOpcion4" Grid.Row="3" Margin="7,5,10,5" Visibility="Collapsed">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label x:Name="labelSkinOpcion4" Grid.Column="0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
-                                    <ComboBox x:Name="comboBoxSkinOpcion4" Grid.Column="1" Height="34"/>
-                                </Grid>
-
-                                <Grid x:Name="gridSkinOpcion5" Grid.Row="4" Margin="7,5,10,5" Visibility="Collapsed">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label x:Name="labelSkinOpcion5" Grid.Column="0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
-                                    <ComboBox x:Name="comboBoxSkinOpcion5" Grid.Column="1" Height="34"/>
-                                </Grid>
-
-                                <Grid x:Name="gridSkinOpcion6" Grid.Row="5" Margin="7,5,10,5" Visibility="Collapsed">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label x:Name="labelSkinOpcion6" Grid.Column="0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
-                                    <ComboBox x:Name="comboBoxSkinOpcion6" Grid.Column="1" Height="34"/>
-                                </Grid>
-
-                                <Grid x:Name="gridSkinOpcion7" Grid.Row="6" Margin="7,5,10,5" Visibility="Collapsed">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label x:Name="labelSkinOpcion7" Grid.Column="0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
-                                    <ComboBox x:Name="comboBoxSkinOpcion7" Grid.Column="1" Height="34"/>
-                                </Grid>
-
-                                <Grid x:Name="gridSkinOpcion8" Grid.Row="7" Margin="7,5,10,5" Visibility="Collapsed">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label x:Name="labelSkinOpcion8" Grid.Column="0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
-                                    <ComboBox x:Name="comboBoxSkinOpcion8" Grid.Column="1" Height="34"/>
-                                </Grid>
-
-                                <Grid x:Name="gridSkinOpcion9" Grid.Row="8" Margin="7,5,10,5" Visibility="Collapsed">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label x:Name="labelSkinOpcion9" Grid.Column="0" FontSize="14" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
-                                    <ComboBox x:Name="comboBoxSkinOpcion9" Grid.Column="1" Height="34"/>
-                                </Grid>
-                            </Grid>
-                        </TabItem>
-                    </TabControl>
-
-                    <TabControl x:Name="gridAutor" Grid.Row="1" Margin="0,20,40,0">
-                        <TabItem>
-                            <TabItem.Header>
-                                <Label x:Name="tabControlAutorLabel" FontSize="16"/>
-                            </TabItem.Header>
-
-                            <Grid VerticalAlignment="Top">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-
-                                <Grid Grid.Row="0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label x:Name="tabControlAutorCreado" Grid.Column="0" FontSize="14" Margin="7,0,5,0" VerticalContentAlignment="Center" Padding="5,5,0,5" />
-                                    <Label x:Name="labelAutor" Grid.Column="1" FontSize="14" VerticalContentAlignment="Center" Padding="0,5,5,5" />
-                                    <Button x:Name="skinWebButton" Grid.Column="2" Margin="5" FontSize="14" />
-                                </Grid>
-
-                                <Grid x:Name="gridDonar" Grid.Row="1">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label x:Name="tabControlAutorDonar" Grid.Column="0" FontSize="14" Margin="7,0,0,0" VerticalContentAlignment="Center" />
-                                    <Button x:Name="skinDonarPaypalButton" Grid.Column="3" Margin="5" FontSize="14" Height="34">
-                                        <Button.Content>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
-
-                                                <Image Grid.Column="0" Source="Imagenes/Icono/paypal_32.png" Height="20" />
-                                                <Label Grid.Column="1" Content="Paypal" Foreground="White" Padding="5,0"/>
-                                            </Grid>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="skinDonarPatreonButton" Grid.Column="1" Margin="5" FontSize="14" Height="34">
-                                        <Button.Content>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
-
-                                                <Image Grid.Column="0" Source="Imagenes/Icono/patreon_32.png" Height="20" />
-                                                <Label Grid.Column="1" Content="Patreon" Foreground="White" Padding="5,0"/>
-                                            </Grid>
-                                        </Button.Content>
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        </TabItem>
-                    </TabControl>
+                    <Grid Grid.Row="1" Margin="0,30,0,0">
+                        <Button x:Name="buttonCleanAllSkins" HorizontalAlignment="Left" />
+                    </Grid>
                 </Grid>
+            </TabItem>
+        </dragablz:TabablzControl>
 
-                <TabControl Grid.Column="1" Margin="0,20,0,0">
-                    <TabControl.ToolTip>
-                        <Grid>
-                            <Label x:Name="tabControlScreenshotsTooltip" FontSize="14"/>
-                        </Grid>
-                    </TabControl.ToolTip>
-
-                    <TabItem>
-                        <TabItem.Header>
-                            <Label x:Name="tabControlScreenshotsLabel" FontSize="16"/>
-                        </TabItem.Header>
-
-                        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition x:Name="columnImage1" Width="*"/>
-                                    <ColumnDefinition x:Name="columnImage2" Width="*"/>
-                                    <ColumnDefinition x:Name="columnImage3" Width="*"/>
-                                    <ColumnDefinition x:Name="columnImage4" Width="*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <Button x:Name="buttonImagePreview1" Grid.Column="0" Margin="0,5,5,10" Padding="0" Background="White">
-                                    <Button.Content>
-                                        <ImageBrush x:Name="imagePreview1" Stretch="UniformToFill" />
-                                    </Button.Content>
-                                </Button>
-
-                                <Button x:Name="buttonImagePreview2" Grid.Column="1" Margin="5,5,5,10" Padding="0" Background="White">
-                                    <Button.Content>
-                                        <ImageBrush x:Name="imagePreview2" Stretch="UniformToFill" />
-                                    </Button.Content>
-                                </Button>
-
-                                <Button x:Name="buttonImagePreview3" Grid.Column="2" Margin="5,5,5,10" Padding="0" Background="White">
-                                    <Button.Content>
-                                        <ImageBrush x:Name="imagePreview3" Stretch="UniformToFill" />
-                                    </Button.Content>
-                                </Button>
-
-                                <Button x:Name="buttonImagePreview4" Grid.Column="3" Margin="5,5,5,10" Padding="0" Background="White">
-                                    <Button.Content>
-                                        <ImageBrush x:Name="imagePreview4" Stretch="UniformToFill" />
-                                    </Button.Content>
-                                </Button>
-                            </Grid>
-                        </ScrollViewer>
-                    </TabItem>
-                </TabControl>
-
-            </Grid>
-        </Grid>
+        
 
         <Grid x:Name="gridPrincipalScreenshot" Grid.Row="1" Margin="10" Visibility="Collapsed">
             <Grid.RowDefinitions>
@@ -389,661 +1073,14 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Button x:Name="buttonBarraSuperiorVolverScreenshot" Grid.Row="0" HorizontalAlignment="Right"/>
+            <Button x:Name="buttonBarraSuperiorVolverScreenshot" Grid.Row="0" HorizontalAlignment="Left"/>
             <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Visible" CanContentScroll="True" Margin="0,10,0,0">
                 <Image x:Name="imageScreenshotAmpliada" Stretch="UniformToFill" />
-            </ScrollViewer> 
-            
+            </ScrollViewer>             
         </Grid>
 
-        <Grid x:Name="gridPrincipalEditor" Grid.Row="1" Visibility="Collapsed">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <Grid Grid.Row="0" Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Button x:Name="buttonEditorCrear" Grid.Column="0"/>
-
-                <Grid x:Name="gridEditorSkinsDisponibles" Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Label x:Name="labelEditorSkinsDisponibles" Grid.Column="0" FontSize="14" Margin="20,0,0,0" VerticalContentAlignment="Center"/>
-                    <ComboBox x:Name="comboBoxEditorSkinsDisponibles" Grid.Column="1" Margin="5,0,0,0"/>
-                    <Button x:Name="buttonEditorSkinsDisponibles" Grid.Column="2" Margin="5,0,0,0"/>
-                </Grid>
-
-                <Button x:Name="buttonBarraSuperiorVolverEditor" Grid.Column="2" HorizontalAlignment="Right"/>
-            </Grid>
-            
-            <Grid Grid.Row="1">
-                <Grid.Background>
-                    <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
-                        <GradientStop Color="#FF009290" Offset="0"/>
-                        <GradientStop Color="#FF00ABA9" Offset="0.567"/>
-                    </LinearGradientBrush>
-                </Grid.Background>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid x:Name="gridEditorTitulo" Grid.Column="0" Margin="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Label x:Name="labelEditorTitulo" Grid.Column="0" FontSize="14" Foreground="White" FontWeight="SemiBold"/>
-                    <TextBox x:Name="textBoxEditorTitulo" Grid.Column="1" FontSize="14" Margin="5,0" Text="test"/>
-                </Grid>
-
-                <Grid x:Name="gridEditorAutor" Grid.Column="1" Margin="20,10,10,10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Label x:Name="labelEditorAutor" Grid.Column="0" FontSize="14" Foreground="White" FontWeight="SemiBold"/>
-                    <TextBox x:Name="textBoxEditorAutor" Grid.Column="1" FontSize="14" Margin="5,0" Text="testAutor"/>
-                </Grid>
-
-                <Grid x:Name="gridEditorWeb" Grid.Column="2" Margin="20,10,10,10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Label x:Name="labelEditorWeb" Grid.Column="0" FontSize="14" Foreground="White" FontWeight="SemiBold"/>
-                    <TextBox x:Name="textBoxEditorWeb" Grid.Column="1" FontSize="14" Margin="5,0" Text="testWeb"/>
-                </Grid>
-            </Grid>
-
-            <ScrollViewer Grid.Row="2" Margin="10" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
-                <Grid x:Name="gridEditorPersonalizacion">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid Grid.Row="0">
-                        <ComboBox x:Name="comboBoxEditorFonts" SelectedIndex="0" HorizontalAlignment="Left" >
-                            <ComboBoxItem Content="Arial" FontSize="14" Margin="5,0"/>
-                            <ComboBoxItem Content="Verdana" FontSize="14" Margin="5,0"/>
-                        </ComboBox>
-                    </Grid>
-
-                    <TabControl Grid.Row="1" HorizontalAlignment="Left">
-                        <TabItem>
-                            <TabItem.Header>
-                                <Label FontSize="14" Content="Button" />
-                            </TabItem.Header>
-
-                            <Grid>
-                                <TabControl x:Name="tabControlEditorColoresButton" TabStripPlacement="Left">
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="bordercolor" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonbordercolor" Margin="5,0" Background="White" SelectedColor="#FF666666"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="darkcorner" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtondarkcorner" Margin="5,0" Background="White" SelectedColor="#FF494949"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="buttontext" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtontext" Margin="5,0" Background="White" SelectedColor="#FFCFCFCF"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="buttontextactive" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtontextactive" Margin="5,0" Background="White" SelectedColor="#FFCFCFCF"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="ButtonFace" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFace" Margin="5,0" Background="White" SelectedColor="#FF666666" A="200"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="ButtonFace2" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFace2" Margin="5,0" Background="White" SelectedColor="#FF505050"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="ButtonFace3" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFace3" Margin="5,0" Background="White" SelectedColor="#FF5C5C5C"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="ButtonFaceDisabled" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFaceDisabled" Margin="5,0" Background="White" SelectedColor="#FF666666" A="15"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="ButtonFaceHover" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFaceHover" Margin="5,0" Background="White" SelectedColor="#FF636363" A="240"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="ButtonFaceActive" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFaceActive" Margin="5,0" Background="White" SelectedColor="#FF666666" A="240"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="ButtonFaceFocus" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFaceFocus" Margin="5,0" Background="White" SelectedColor="DimGray" A="240"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="ButtonFaceActiveFocus" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFaceActiveFocus" Margin="5,0" Background="White" SelectedColor="DimGray"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="BlueBorder" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBlueBorder" Margin="5,0" Background="White" SelectedColor="#FF212121"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="ButtonBorder" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorder" Margin="5,0" Background="White" SelectedColor="#FF595959"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="ButtonBorderSubtle" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderSubtle" Margin="5,0" Background="White" SelectedColor="#FF4F4F4F"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="ButtonBorderPage" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderPage" Margin="5,0" Background="White" SelectedColor="#FF7C7C7C"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="ButtonBorderDisabled" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderDisabled" Margin="5,0" Background="White" SelectedColor="#FF4B4B4B"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="ButtonBorderDisabled2" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderDisabled2" Margin="5,0" Background="White" SelectedColor="#FF414141"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="ButtonBorderActive" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderActive" Margin="5,0" Background="White" SelectedColor="#FF7D7D7D"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="ButtonBorderFocus" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderFocus" Margin="5,0" Background="White" SelectedColor="#FF898989"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="ButtonBorderFocusSubtle" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderFocusSubtle" Margin="5,0" Background="White" SelectedColor="#FF7A7A7A"/>
-                                        </Grid>
-                                    </TabItem>
-                                </TabControl>
-                            </Grid>
-                        </TabItem>
-                        <TabItem>
-                            <TabItem.Header>
-                                <Label FontSize="14" Content="Text" />
-                            </TabItem.Header>
-
-                            <Grid>
-                                <TabControl x:Name="tabControlEditorColoresTexto" TabStripPlacement="Left">
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="Text" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorText" Margin="5,0" Background="White" SelectedColor="#FFCFCFCF"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="Text2" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorText2" Margin="5,0" Background="White" SelectedColor="#FFB4B4B4"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="TextDisabled" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextDisabled" Margin="5,0" Background="White" SelectedColor="#FF636363"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="TextHover" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextHover" Margin="5,0" Background="White" SelectedColor="#FFE2E2E2"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="TextSelected" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextSelected" Margin="5,0" Background="White" SelectedColor="#FFEFEFEF"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="TextEntrySelected" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextEntrySelected" Margin="5,0" Background="White" SelectedColor="#FFEDEDED" A="235"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="TextSelectedBG" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextSelectedBG" Margin="5,0" Background="White" SelectedColor="#FF255994"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="TextGlowHover" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextGlowHover" Margin="5,0" Background="White" SelectedColor="#FF7C7C7C"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="TextGlowSelected" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextGlowSelected" Margin="5,0" Background="White" SelectedColor="DarkGray"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="TextGlowHoverSm" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextGlowHoverSm" Margin="5,0" Background="White" SelectedColor="#FF7B7B7B"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="TextGlowSelectedSm" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextGlowSelectedSm" Margin="5,0" Background="White" SelectedColor="#FF8E8E8E"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="redborder" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextredborder" Margin="5,0" Background="White" SelectedColor="#FFA94847"/>
-                                        </Grid>
-                                    </TabItem>
-                                </TabControl>
-                            </Grid>
-                        </TabItem>
-                        <TabItem>
-                            <TabItem.Header>
-                                <Label FontSize="14" Content="Label" />
-                            </TabItem.Header>
-
-                            <Grid>
-                                <TabControl x:Name="tabControlEditorColoresLabel" TabStripPlacement="Left">
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="NavLabel" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorLabelNav" Margin="5,0" Background="White" SelectedColor="#FF999999"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="Label" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorLabel" Margin="5,0" Background="White" SelectedColor="#FFA8A8A8"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="Label2" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorLabel2" Margin="5,0" Background="White" SelectedColor="#FF6F6F6F"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="LabelDisabled" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorLabelDisabled" Margin="5,0" Background="White" SelectedColor="#FF737373"/>
-                                        </Grid>
-                                    </TabItem>
-                                    <TabItem>
-                                        <TabItem.Header>
-                                            <Label FontSize="14" Content="LabelFocus" HorizontalContentAlignment="Right">
-                                                <Label.LayoutTransform>
-                                                    <RotateTransform Angle="90" />
-                                                </Label.LayoutTransform>
-                                            </Label>
-                                        </TabItem.Header>
-
-                                        <Grid>
-                                            <views:ColorCanvas x:Name="colorCanvasEditorColorLabelFocus" Margin="5,0" Background="White" SelectedColor="#FFC4C4C4"/>
-                                        </Grid>
-                                    </TabItem>
-                                </TabControl>
-                            </Grid>
-                        </TabItem>
-                    </TabControl>
-                </Grid>
-            </ScrollViewer>
-        </Grid>
-
-        <Grid x:Name="gridPrincipalOpciones" Grid.Row="1" Margin="10" Visibility="Collapsed">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-
-            <Button x:Name="buttonBarraSuperiorVolverOpciones" Grid.Row="0" HorizontalAlignment="Left" Margin="0,5,5,5"/>
-
-            <Grid Grid.Row="1" Margin="0,30,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <Label x:Name="gridOptionsLanguageLabel" Grid.Column="0" Margin="0,0,10,0" FontSize="14"/>
-                <ComboBox x:Name="comboBoxOpcionesIdioma" Grid.Column="1">
-                    <ComboBoxItem Content="English" FontSize="14" Margin="5,0" />
-                    <ComboBoxItem Content="Español" FontSize="14" Margin="5,0" />
-                </ComboBox>
-                <Label x:Name="gridOptionsLanguageLabelAviso" Grid.Column="2" Margin="10,0,0,0" FontSize="14"/>
-            </Grid>
-
-            <Grid Grid.Row="2" Margin="0,30,0,0">
-                <Button x:Name="buttonCleanAllSkins" HorizontalAlignment="Left" />
-            </Grid>
-        </Grid>
-
+        
+       
         <tb:TaskbarIcon x:Name="NotifyIcon"
 			Visibility="Visible"
 			ToolTipText="Steam Skins"
@@ -1052,4 +1089,4 @@
 			IsHitTestVisible="False">
         </tb:TaskbarIcon>
     </Grid>
-</metro:Window>
+</Controls:MetroWindow>
