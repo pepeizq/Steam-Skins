@@ -459,4 +459,7 @@
   <data name="editorGeneratingConfig" xml:space="preserve">
     <value>Generating Skin</value>
   </data>
+  <data name="optionsModeDev" xml:space="preserve">
+    <value>Mode Dev in Editor</value>
+  </data>
 </root>

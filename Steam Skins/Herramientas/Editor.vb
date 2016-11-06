@@ -123,24 +123,48 @@ Module Editor
 
     Public Sub TraducirRGBA(color As ColorCanvas, traducir As String)
 
+        Try
+            Dim temp, temp2 As String
+            Dim int, int2, int3 As Integer
+
+            If Not traducir = Nothing Then
+                int = traducir.IndexOf(" ")
+                temp = traducir.Remove(0, int + 1)
+
+                color.R = traducir.Remove(int, traducir.Length - int)
+
+                int2 = temp.IndexOf(" ")
+                temp2 = temp.Remove(0, int2 + 1)
+
+                color.G = temp.Remove(int2, temp.Length - int2)
+
+                int3 = temp2.IndexOf(" ")
+
+                color.B = temp2.Remove(int3, temp2.Length - int3)
+                color.A = temp2.Remove(0, int3 + 1)
+            End If
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+    Public Function CambiarRGBA(ini As String, ancla As String, nuevoValor As String) As String
+
         Dim temp, temp2 As String
         Dim int, int2, int3 As Integer
 
-        int = traducir.IndexOf(" ")
-        temp = traducir.Remove(0, int + 1)
+        int = ini.IndexOf(ancla)
+        temp = ini.Remove(0, int)
 
-        color.R = traducir.Remove(int, traducir.Length - int)
-
-        int2 = temp.IndexOf(" ")
+        int2 = temp.IndexOf(Chr(34))
         temp2 = temp.Remove(0, int2 + 1)
+        int3 = temp2.IndexOf(Chr(34))
 
-        color.G = temp.Remove(int2, temp.Length - int2)
+        ini = ini.Remove(int + int2 + 1, int3)
+        ini = ini.Insert(int + int2 + 1, nuevoValor)
 
-        int3 = temp2.IndexOf(" ")
-
-        color.B = temp2.Remove(int3, temp2.Length - int3)
-        color.A = temp2.Remove(0, int3 + 1)
-
-    End Sub
+        Return ini
+    End Function
 
 End Module

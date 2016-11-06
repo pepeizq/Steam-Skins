@@ -394,7 +394,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Button x:Name="buttonEditorCrear" Grid.Column="0" IsEnabled="False"/>
-                        <Label x:Name="labelEditorProgreso" Grid.Column="1" Margin="10,0,0,0" />
+                        <Label x:Name="labelEditorProgreso" Grid.Column="1" Margin="10,0,0,0" VerticalContentAlignment="Center" />
 
                         <Grid x:Name="gridEditorSkinsDisponibles" Grid.Column="2" HorizontalAlignment="Right">
                             <Grid.ColumnDefinitions>
@@ -480,359 +480,13 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <GroupBox x:Name="groupBoxEditorColores" Grid.Column="0" IsEnabled="False">
+                            <GroupBox x:Name="groupBoxEditorColores" Grid.Column="0">
                                 <GroupBox.Header>
                                     <Label x:Name="groupBoxEditorColor" FontSize="16" Foreground="White"/>
                                 </GroupBox.Header>
 
                                 <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">
                                     <TabControl HorizontalAlignment="Left" Margin="5">
-                                        <TabItem Header="Button">
-                                            <Grid>
-                                                <TabControl x:Name="tabControlEditorColoresButton" TabStripPlacement="Left">
-                                                    <TabItem Header="bordercolor">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonbordercolor" Margin="5,0" Background="White" SelectedColor="#FF666666"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="darkcorner">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtondarkcorner" Margin="5,0" Background="White" SelectedColor="#FF494949"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="buttontext">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtontext" Margin="5,0" Background="White" SelectedColor="#FFCFCFCF"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="buttontextactive">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtontextactive" Margin="5,0" Background="White" SelectedColor="#FFCFCFCF"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="ButtonFace">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFace" Margin="5,0" Background="White" SelectedColor="#FF666666" A="200"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="ButtonFace2">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFace2" Margin="5,0" Background="White" SelectedColor="#FF505050"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="ButtonFace3">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFace3" Margin="5,0" Background="White" SelectedColor="#FF5C5C5C"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="ButtonFaceDisabled">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFaceDisabled" Margin="5,0" Background="White" SelectedColor="#FF666666" A="15"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="ButtonFaceHover">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFaceHover" Margin="5,0" Background="White" SelectedColor="#FF636363" A="240"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="ButtonFaceActive">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFaceActive" Margin="5,0" Background="White" SelectedColor="#FF666666" A="240"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="ButtonFaceFocus">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFaceFocus" Margin="5,0" Background="White" SelectedColor="DimGray" A="240"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="ButtonFaceActiveFocus">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFaceActiveFocus" Margin="5,0" Background="White" SelectedColor="DimGray"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="BlueBorder">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBlueBorder" Margin="5,0" Background="White" SelectedColor="#FF212121"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="ButtonBorder">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorder" Margin="5,0" Background="White" SelectedColor="#FF595959"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="ButtonBorderSubtle">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderSubtle" Margin="5,0" Background="White" SelectedColor="#FF4F4F4F"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="ButtonBorderPage">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderPage" Margin="5,0" Background="White" SelectedColor="#FF7C7C7C"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="ButtonBorderDisabled">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderDisabled" Margin="5,0" Background="White" SelectedColor="#FF4B4B4B"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="ButtonBorderDisabled2">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderDisabled2" Margin="5,0" Background="White" SelectedColor="#FF414141"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="ButtonBorderActive">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderActive" Margin="5,0" Background="White" SelectedColor="#FF7D7D7D"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="ButtonBorderFocus">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderFocus" Margin="5,0" Background="White" SelectedColor="#FF898989"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="ButtonBorderFocusSubtle">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderFocusSubtle" Margin="5,0" Background="White" SelectedColor="#FF7A7A7A"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                </TabControl>
-                                            </Grid>
-                                        </TabItem>
-                                        <TabItem Header="Text">
-                                            <Grid>
-                                                <TabControl x:Name="tabControlEditorColoresTexto" TabStripPlacement="Left">
-                                                    <TabItem Header="Text">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorText" Margin="5,0" Background="White" SelectedColor="#FFCFCFCF"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="Text2">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorText2" Margin="5,0" Background="White" SelectedColor="#FFB4B4B4"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="TextDisabled">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextDisabled" Margin="5,0" Background="White" SelectedColor="#FF636363"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="TextHover">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextHover" Margin="5,0" Background="White" SelectedColor="#FFE2E2E2"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="TextSelected">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextSelected" Margin="5,0" Background="White" SelectedColor="#FFEFEFEF"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="TextEntrySelected">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextEntrySelected" Margin="5,0" Background="White" SelectedColor="#FFEDEDED" A="235"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="TextSelectedBG">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextSelectedBG" Margin="5,0" Background="White" SelectedColor="#FF255994"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="TextGlowHover">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextGlowHover" Margin="5,0" Background="White" SelectedColor="#FF7C7C7C"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="TextGlowSelected">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextGlowSelected" Margin="5,0" Background="White" SelectedColor="DarkGray"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="TextGlowHoverSm">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextGlowHoverSm" Margin="5,0" Background="White" SelectedColor="#FF7B7B7B"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="TextGlowSelectedSm">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextGlowSelectedSm" Margin="5,0" Background="White" SelectedColor="#FF8E8E8E"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="redborder">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextredborder" Margin="5,0" Background="White" SelectedColor="#FFA94847"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                </TabControl>
-                                            </Grid>
-                                        </TabItem>
-                                        <TabItem Header="Label">
-                                            <Grid>
-                                                <TabControl x:Name="tabControlEditorColoresLabel" TabStripPlacement="Left">
-                                                    <TabItem Header="NavLabel">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorLabelNav" Margin="5,0" Background="White" SelectedColor="#FF999999"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="Label">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorLabel" Margin="5,0" Background="White" SelectedColor="#FFA8A8A8"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="Label2">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorLabel2" Margin="5,0" Background="White" SelectedColor="#FF6F6F6F"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="LabelDisabled">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorLabelDisabled" Margin="5,0" Background="White" SelectedColor="#FF737373"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="LabelFocus">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorLabelFocus" Margin="5,0" Background="White" SelectedColor="#FFC4C4C4"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                </TabControl>
-                                            </Grid>
-                                        </TabItem>
-                                        <TabItem Header="Scroll">
-                                            <Grid>
-                                                <TabControl x:Name="tabControlEditorColoresScroll" TabStripPlacement="Left">
-                                                    <TabItem Header="SuperNav">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorScrollSuperNav" Margin="5,0" Background="White" SelectedColor="White"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="SuperNavHover">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorScrollSuperNavHover" Margin="5,0" Background="White" SelectedColor="White"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="ScrollGlyph">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorScrollGlyph" Margin="5,0" Background="White" SelectedColor="#FFC6C6C6"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="ScrollGlyphDisabled">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorScrollGlyphDisabled" Margin="5,0" Background="White" SelectedColor="#FF4A4A4A"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="ScrollGlyphFocus">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorScrollGlyphFocus" Margin="5,0" Background="White" SelectedColor="#FFF2F2F2"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="ScrollBG">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorScrollBG" Margin="5,0" Background="White" SelectedColor="#FF363636"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                </TabControl>
-                                            </Grid>
-                                        </TabItem>
-                                        <TabItem Header="Header">
-                                            <Grid>
-                                                <TabControl x:Name="tabControlEditorColoresHeader" TabStripPlacement="Left">
-                                                    <TabItem Header="HeaderClient">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorHeaderClient" Margin="5,0" Background="White" SelectedColor="#FF353535"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="HeaderDialog">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorHeaderDialog" Margin="5,0" Background="White" SelectedColor="#FF353535"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="TitleBar">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorHeaderTitleBar" Margin="5,0" Background="White" SelectedColor="#FF1A1A1A" A="80" />
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="TitleBarFocus">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorHeaderTitleBarFocus" Margin="5,0" Background="White" SelectedColor="#FF0E1F38" A="80" />
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="MenuBG">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorHeaderMenuBG" Margin="5,0" Background="White" SelectedColor="#FF444444"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                </TabControl>
-                                            </Grid>
-                                        </TabItem>
-                                        <TabItem Header="Focus">
-                                            <Grid>
-                                                <TabControl x:Name="tabControlEditorColoresFocus" TabStripPlacement="Left">
-                                                    <TabItem Header="Focus0">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocus0" Margin="5,0" Background="White" SelectedColor="#FF17334D"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="Focus">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocus" Margin="5,0" Background="White" SelectedColor="#FF193754"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="Focus2">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocus2" Margin="5,0" Background="White" SelectedColor="#FF15466B"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="Focus3">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocus3" Margin="5,0" Background="White" SelectedColor="#FF525252"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="Focus4">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocus4" Margin="5,0" Background="White" SelectedColor="#FF439EBF"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="FocusGrid">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusGrid" Margin="5,0" Background="White" SelectedColor="#FF5575A1" A="240"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="Highlight">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight" Margin="5,0" Background="White" SelectedColor="#FF103552" A="120"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="Highlight1">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight1" Margin="5,0" Background="White" SelectedColor="#FF5CC1E5"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="Highlight2">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight2" Margin="5,0" Background="White" SelectedColor="#FF4C9FBF"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="Highlight3">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight3" Margin="5,0" Background="White" SelectedColor="#FFAD4547"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="Highlight5">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight5" Margin="5,0" Background="White" SelectedColor="#FF183552"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="Highlight5a">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight5a" Margin="5,0" Background="White" SelectedColor="#FF1E4266"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                    <TabItem Header="Highlight5b">
-                                                        <Grid>
-                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight5b" Margin="5,0" Background="White" SelectedColor="#FF112A56"/>
-                                                        </Grid>
-                                                    </TabItem>
-                                                </TabControl>
-                                            </Grid>
-                                        </TabItem>
                                         <TabItem Header="Background">
                                             <Grid>
                                                 <TabControl x:Name="tabControlEditorColoresBackground" TabStripPlacement="Left">
@@ -974,11 +628,469 @@
                                                 </TabControl>
                                             </Grid>
                                         </TabItem>
+                                        <TabItem Header="Button">
+                                            <Grid>
+                                                <TabControl x:Name="tabControlEditorColoresButton" TabStripPlacement="Left">
+                                                    <TabItem Header="bordercolor">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonbordercolor" Margin="5,0" Background="White" SelectedColor="#FF666666"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="darkcorner">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtondarkcorner" Margin="5,0" Background="White" SelectedColor="#FF494949"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="buttontext">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtontext" Margin="5,0" Background="White" SelectedColor="#FFCFCFCF"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="buttontextactive">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtontextactive" Margin="5,0" Background="White" SelectedColor="#FFCFCFCF"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonFace">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFace" Margin="5,0" Background="White" SelectedColor="#FF666666" A="200"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonFace2">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFace2" Margin="5,0" Background="White" SelectedColor="#FF505050"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonFace3">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFace3" Margin="5,0" Background="White" SelectedColor="#FF5C5C5C"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonFaceDisabled">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFaceDisabled" Margin="5,0" Background="White" SelectedColor="#FF666666" A="15"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonFaceHover">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFaceHover" Margin="5,0" Background="White" SelectedColor="#FF636363" A="240"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonFaceActive">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFaceActive" Margin="5,0" Background="White" SelectedColor="#FF666666" A="240"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonFaceFocus">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFaceFocus" Margin="5,0" Background="White" SelectedColor="DimGray" A="240"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonFaceActiveFocus">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonFaceActiveFocus" Margin="5,0" Background="White" SelectedColor="DimGray"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="BlueBorder">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBlueBorder" Margin="5,0" Background="White" SelectedColor="#FF212121"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonBorder">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorder" Margin="5,0" Background="White" SelectedColor="#FF595959"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonBorderSubtle">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderSubtle" Margin="5,0" Background="White" SelectedColor="#FF4F4F4F"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonBorderPage">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderPage" Margin="5,0" Background="White" SelectedColor="#FF7C7C7C"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonBorderDisabled">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderDisabled" Margin="5,0" Background="White" SelectedColor="#FF4B4B4B"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonBorderDisabled2">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderDisabled2" Margin="5,0" Background="White" SelectedColor="#FF414141"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonBorderActive">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderActive" Margin="5,0" Background="White" SelectedColor="#FF7D7D7D"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonBorderFocus">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderFocus" Margin="5,0" Background="White" SelectedColor="#FF898989"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ButtonBorderFocusSubtle">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorButtonBorderFocusSubtle" Margin="5,0" Background="White" SelectedColor="#FF7A7A7A"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                </TabControl>
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem Header="Chat">
+                                            <Grid>
+                                                <TabControl x:Name="tabControlEditorColoresChat" TabStripPlacement="Left">
+                                                    <TabItem Header="ChatDialog.URLColor">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorChatDialogURLColor" Margin="5,0" Background="White" SelectedColor="#FFCFCFCF"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ChatOwnTextColor">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorChatOwnTextColor" Margin="5,0" Background="White" SelectedColor="#FFA8A8A8"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ChatDialog.HistoryColor">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorChatDialogHistoryColor" Margin="5,0" Background="White" SelectedColor="#FF7C7C7C"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ChatGradientTop">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorChatGradientTop" Margin="5,0" Background="White" SelectedColor="#FF272727"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ChatGradientBottom">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorChatGradientBottom" Margin="5,0" Background="White" SelectedColor="#FF686868"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                </TabControl> 
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem Header="Focus">
+                                            <Grid>
+                                                <TabControl x:Name="tabControlEditorColoresFocus" TabStripPlacement="Left">
+                                                    <TabItem Header="Focus0">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocus0" Margin="5,0" Background="White" SelectedColor="#FF17334D"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Focus">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocus" Margin="5,0" Background="White" SelectedColor="#FF193754"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Focus2">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocus2" Margin="5,0" Background="White" SelectedColor="#FF15466B"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Focus3">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocus3" Margin="5,0" Background="White" SelectedColor="#FF525252"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Focus4">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocus4" Margin="5,0" Background="White" SelectedColor="#FF439EBF"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="FocusGrid">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusGrid" Margin="5,0" Background="White" SelectedColor="#FF5575A1" A="240"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Highlight">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight" Margin="5,0" Background="White" SelectedColor="#FF103552" A="120"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Highlight1">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight1" Margin="5,0" Background="White" SelectedColor="#FF5CC1E5"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Highlight2">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight2" Margin="5,0" Background="White" SelectedColor="#FF4C9FBF"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Highlight3">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight3" Margin="5,0" Background="White" SelectedColor="#FFAD4547"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Highlight5">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight5" Margin="5,0" Background="White" SelectedColor="#FF183552"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Highlight5a">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight5a" Margin="5,0" Background="White" SelectedColor="#FF1E4266"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Highlight5b">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFocusHighlight5b" Margin="5,0" Background="White" SelectedColor="#FF112A56"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                </TabControl>
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem Header="Friends">
+                                            <Grid>
+                                                <TabControl x:Name="tabControlEditorColoresFriends" TabStripPlacement="Left">
+                                                    <TabItem Header="InGameColor">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFriendsInGameColor" Margin="5,0" Background="White" SelectedColor="#FF90BA3C"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="InGameHoverColor">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFriendsInGameHoverColor" Margin="5,0" Background="White" SelectedColor="#FFB6EB4C"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="OnlineColor">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFriendsOnlineColor" Margin="5,0" Background="White" SelectedColor="#FF54A5C4"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="OnlineHoverColor">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFriendsOnlineHoverColor" Margin="5,0" Background="White" SelectedColor="#FF68CBF2"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="OfflineColor">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFriendsOfflineColor" Margin="5,0" Background="White" SelectedColor="#FF7F7F7F"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="OfflineHoverColor">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFriendsOfflineHoverColor" Margin="5,0" Background="White" SelectedColor="#FFB9B9B9"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="PanelDefault">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFriendsPanelDefault" Margin="5,0" Background="White" SelectedColor="#FFA8A8A8"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="PanelOver">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFriendsPanelOver" Margin="5,0" Background="White" SelectedColor="#FFCFCFCF"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="PanelSelected">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFriendsPanelSelected" Margin="5,0" Background="White" SelectedColor="#FF1E1E1E"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="SectionHeader">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFriendsSectionHeader" Margin="5,0" Background="White" SelectedColor="#FFA8A8A8"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="NoAvatarOver">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFriendsNoAvatarOver" Margin="5,0" Background="White" SelectedColor="#FFCFCFCF"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="IgnoredColor">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFriendsIgnoredColor" Margin="5,0" Background="White" SelectedColor="White"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ListHeaderFadeOut">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFriendsListHeaderFadeOut" Margin="5,0" Background="White" SelectedColor="#FF363636" A="0"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="GoldenColor">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFriendsGoldenColor" Margin="5,0" Background="White" SelectedColor="#FFFFFF63"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="GoldenHoverColor">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorFriendsGoldenHoverColor" Margin="5,0" Background="White" SelectedColor="#FFFFFFB4"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                </TabControl>
+                                            </Grid>
+                                        </TabItem> 
+                                        <TabItem Header="Header">
+                                            <Grid>
+                                                <TabControl x:Name="tabControlEditorColoresHeader" TabStripPlacement="Left">
+                                                    <TabItem Header="HeaderClient">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorHeaderClient" Margin="5,0" Background="White" SelectedColor="#FF353535"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="HeaderDialog">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorHeaderDialog" Margin="5,0" Background="White" SelectedColor="#FF353535"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TitleBar">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorHeaderTitleBar" Margin="5,0" Background="White" SelectedColor="#FF1A1A1A" A="80" />
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TitleBarFocus">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorHeaderTitleBarFocus" Margin="5,0" Background="White" SelectedColor="#FF0E1F38" A="80" />
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="MenuBG">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorHeaderMenuBG" Margin="5,0" Background="White" SelectedColor="#FF444444"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                </TabControl>
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem Header="Label">
+                                            <Grid>
+                                                <TabControl x:Name="tabControlEditorColoresLabel" TabStripPlacement="Left">
+                                                    <TabItem Header="NavLabel">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorLabelNav" Margin="5,0" Background="White" SelectedColor="#FF999999"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Label">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorLabel" Margin="5,0" Background="White" SelectedColor="#FFA8A8A8"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Label2">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorLabel2" Margin="5,0" Background="White" SelectedColor="#FF6F6F6F"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="LabelDisabled">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorLabelDisabled" Margin="5,0" Background="White" SelectedColor="#FF737373"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="LabelFocus">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorLabelFocus" Margin="5,0" Background="White" SelectedColor="#FFC4C4C4"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                </TabControl>
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem Header="Scroll">
+                                            <Grid>
+                                                <TabControl x:Name="tabControlEditorColoresScroll" TabStripPlacement="Left">
+                                                    <TabItem Header="SuperNav">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorScrollSuperNav" Margin="5,0" Background="White" SelectedColor="White"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="SuperNavHover">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorScrollSuperNavHover" Margin="5,0" Background="White" SelectedColor="White"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ScrollGlyph">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorScrollGlyph" Margin="5,0" Background="White" SelectedColor="#FFC6C6C6"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ScrollGlyphDisabled">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorScrollGlyphDisabled" Margin="5,0" Background="White" SelectedColor="#FF4A4A4A"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ScrollGlyphFocus">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorScrollGlyphFocus" Margin="5,0" Background="White" SelectedColor="#FFF2F2F2"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="ScrollBG">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorScrollBG" Margin="5,0" Background="White" SelectedColor="#FF363636"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                </TabControl>
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem Header="Text">
+                                            <Grid>
+                                                <TabControl x:Name="tabControlEditorColoresTexto" TabStripPlacement="Left">
+                                                    <TabItem Header="Text">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorText" Margin="5,0" Background="White" SelectedColor="#FFCFCFCF"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="Text2">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorText2" Margin="5,0" Background="White" SelectedColor="#FFB4B4B4"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TextDisabled">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextDisabled" Margin="5,0" Background="White" SelectedColor="#FF636363"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TextHover">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextHover" Margin="5,0" Background="White" SelectedColor="#FFE2E2E2"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TextSelected">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextSelected" Margin="5,0" Background="White" SelectedColor="#FFEFEFEF"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TextEntrySelected">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextEntrySelected" Margin="5,0" Background="White" SelectedColor="#FFEDEDED" A="235"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TextSelectedBG">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextSelectedBG" Margin="5,0" Background="White" SelectedColor="#FF255994"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TextGlowHover">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextGlowHover" Margin="5,0" Background="White" SelectedColor="#FF7C7C7C"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TextGlowSelected">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextGlowSelected" Margin="5,0" Background="White" SelectedColor="DarkGray"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TextGlowHoverSm">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextGlowHoverSm" Margin="5,0" Background="White" SelectedColor="#FF7B7B7B"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="TextGlowSelectedSm">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextGlowSelectedSm" Margin="5,0" Background="White" SelectedColor="#FF8E8E8E"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                    <TabItem Header="redborder">
+                                                        <Grid>
+                                                            <views:ColorCanvas x:Name="colorCanvasEditorColorTextredborder" Margin="5,0" Background="White" SelectedColor="#FFA94847"/>
+                                                        </Grid>
+                                                    </TabItem>
+                                                </TabControl>
+                                            </Grid>
+                                        </TabItem>
                                     </TabControl>
                                 </ScrollViewer>
                             </GroupBox>
 
-                            <GroupBox x:Name="groupBoxEditorTexturas" Grid.Column="1" IsEnabled="False">
+                            <GroupBox x:Name="groupBoxEditorTexturas" Grid.Column="1">
                                 <GroupBox.Header>
                                     <Label x:Name="groupBoxEditorTextura" FontSize="16" Foreground="White"/>
                                 </GroupBox.Header>
@@ -1041,6 +1153,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0" Margin="0,5,0,0">
@@ -1060,6 +1173,10 @@
 
                     <Grid Grid.Row="1" Margin="0,30,0,0">
                         <Button x:Name="buttonCleanAllSkins" HorizontalAlignment="Left" />
+                    </Grid>
+
+                    <Grid Grid.Row="2" Margin="0,30,0,0">
+                        <CheckBox x:Name="checkBoxOpcionesEditorDev" />
                     </Grid>
                 </Grid>
             </TabItem>

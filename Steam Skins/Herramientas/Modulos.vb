@@ -108,7 +108,7 @@ Module Modulos
             fs.Write(info, 0, info.Length)
         End Using
 
-        Dim lineas() As String = {"Options]", "Language="}
+        Dim lineas() As String = {"Options]", "Language=", " ", "[Editor]", "Dev="}
 
         File.AppendAllLines(My.Application.Info.DirectoryPath + "\Config.ini", lineas)
 
